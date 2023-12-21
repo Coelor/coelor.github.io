@@ -1,0 +1,86 @@
+/* General body styling */
+body {
+    font-family: 'Times New Roman', serif; /* This font has a more classic look */
+    background-color: #f4e9dc; /* Parchment-like background color */
+    color: #333;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+}
+
+/* Header styling with a darker, wood-like color */
+/* header {
+    background-color: #3e2723; /* Dark brown */
+    /* color: #dcd0c0; Light cream color for text */
+    /* padding: 15px 0; */
+    /* width: 100%; */
+    /* text-align: center; */
+    /* border-bottom: 2px solid #8b4513; Adding a border to simulate wood texture */
+/* } */
+
+header h1 {
+    margin: 0;
+    font-family: 'Cinzel', serif; /* A font that gives a medieval feel */
+}
+
+/* Footer styling */
+footer, header {
+    background-color: #3e2723; /* Dark brown, matching the header */
+    color: #dcd0c0; /* Light cream color for text */
+    width: 100%;
+    text-align: center;
+    padding: 10px 0;
+    border-top: 2px solid #8b4513; /* Adding a border */
+}
+
+/* PDF Container */
+#pdf-container {
+    display: flex;
+    align-items: center; /* Aligns items vertically in the center */
+    justify-content: center; /* Centers the items horizontally */
+    margin-top: 20px;
+}
+
+/* PDF Renderer */
+#pdf-renderer {
+    /* Your existing styles, ensure it has a defined width */
+    margin: 0 15px; /* Add some space around the PDF viewer */
+}
+
+/* Navigation Buttons */
+#prev-page, #next-page {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #8b4513;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+#prev-page:hover, #next-page:hover {
+    background-color: #a0522d;
+}
+
+#download-pdf {
+    padding: 10px 20px;
+    margin-top: 20px;
+    background-color: #4CAF50; /* Green color */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+}
+
+#download-pdf:hover {
+    background-color: #45a049;
+}
+

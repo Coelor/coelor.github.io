@@ -2,10 +2,79 @@
 <html>
 <head>
     <title>Dungeons and Devil Fruits Player's Handbook</title>
-	<link rel="stylesheet" type="text/css" href="./a.css">
+    <link rel="stylesheet" type="text/css" href="./a.css">
+    <!-- Include PDF.js library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.12.313/pdf.min.js"></script>
+    <!-- Include the PDF.js Worker -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.12.313/pdf.worker.min.js"></script>
+
 </head>
 <body>
-    <a href="https://drive.google.com/file/d/1sA2MKxfZFUGxtHPEQlSL2byzZhs-4AwO/view?usp=sharing">Read the Players Handbook here</a>
-    <!-- <iframe src="./[PHB] One Piece Dungeons and Devil Fruits (5e System).pdf" width="600" height="400"></iframe> -->
+    <header>
+        <!-- <h1>Dungeons and Devil Fruits Player's Handbook</h1> -->
+    </header>
+
+    <div id="pdf-container">
+        <button id="prev-page">Previous Page</button>
+        <div id="pdf-renderer"></div>
+        <button id="next-page">Next Page</button>
+    </div>
+    
+    <button id="download-pdf">Download PDF</button>
+
+    <footer>
+        <!-- Footer content here -->
+    </footer>
+
+    <script src="./scripts.js">
+    // <script>
+        console.log('This script loads correctly!');
+    </script>
+<!-- 
+        if (pdfjsLib && pdfjsLib.getDocument) {
+        pdfjsLib.GlobalWorkerOptions.workerSrc = '//mozilla.github.io/pdf.js/build/pdf.worker.js';
+
+        var url = './[PHB] One Piece Dungeons and Devil Fruits (5e System).pdf'; // Path to your PDF
+
+        // Asynchronous download PDF
+        var loadingTask = pdfjsLib.getDocument(url);
+        loadingTask.promise.then(function(pdf) {
+            console.log('PDF loaded');
+            
+            // Fetch the first page
+            var pageNumber = 1;
+            pdf.getPage(pageNumber).then(function(page) {
+                console.log('Page loaded');
+                
+                var scale = 1.5; // Adjust the scale as needed
+                var viewport = page.getViewport({scale: scale});
+
+                // Prepare canvas using PDF page dimensions
+                var canvas = document.createElement('canvas');
+                var context = canvas.getContext('2d');
+                canvas.height = viewport.height;
+                canvas.width = viewport.width;
+
+                // Render PDF page into canvas context
+                var renderContext = {
+                    canvasContext: context,
+                    viewport: viewport
+                };
+                var renderTask = page.render(renderContext);
+                renderTask.promise.then(function () {
+                    console.log('Page rendered');
+                });
+
+                // Append the canvas to your page
+                document.getElementById('pdf-renderer').appendChild(canvas);
+            });
+        }, function (reason) {
+            // PDF loading error
+            console.error(reason);
+        });
+    } else {
+        console.error('PDF.js library is not loaded.');
+    } -->
+    <!-- </script> Your JavaScript file     -->
 </body>
 </html>
