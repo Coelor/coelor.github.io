@@ -1,7 +1,7 @@
 if (pdfjsLib && pdfjsLib.getDocument) {
     pdfjsLib.GlobalWorkerOptions.workerSrc = '//mozilla.github.io/pdf.js/build/pdf.worker.js';
 
-    var url = './[PHB] One Piece Dungeons and Devil Fruits (5e System).pdf'; // Path to your PDF
+    var url = 'https://drive.google.com/file/d/1sA2MKxfZFUGxtHPEQlSL2byzZhs-4AwO/view?usp=sharing'; // Path to your PDF
     var pdfDoc = null;
     var currentPageNumber = 1;
     var scale = 1.5; // Adjust the scale as needed
@@ -68,7 +68,7 @@ if (pdfjsLib && pdfjsLib.getDocument) {
 
 document.getElementById('download-pdf').addEventListener('click', function() {
     var link = document.createElement('a');
-    link.href = './[PHB] One Piece Dungeons and Devil Fruits (5e System).pdf';
+    link.href = 'https://drive.google.com/file/d/1sA2MKxfZFUGxtHPEQlSL2byzZhs-4AwO/view?usp=sharing';
     link.download = 'Dungeons and Devil Fruits Handbook.pdf'; // Optional: specify a filename for the downloaded file
     link.click();
 });
