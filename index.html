@@ -2,61 +2,10 @@
 <html>
 <head>
     <title>Dungeons and Devil Fruits Player's Handbook</title>
-    <link rel="stylesheet" type="text/css" href="./a.css">
+	<link rel="stylesheet" type="text/css" href="./a.css">
 </head>
 <body>
-    <header>
-        <h1>Dungeons and Devil Fruits Player's Handbook</h1>
-        <!-- Navigation bar or menu could go here -->
-    </header>
-
-    <main>
-        <iframe src="./[PHB] One Piece Dungeons and Devil Fruits (5e System).pdf" width="600" height="400" style="border: 3px solid #000;"></iframe>
-        <!-- Optional download link or additional navigation -->
-    </main>
-
-    <footer>
-        <!-- Footer content here -->
-    </footer>
-
-    <script>
-        function getWindowSize() {
-            var width = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
-            var height = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
-
-            alert('Window Size: Width = ' + width + ', Height = ' + height);
-            // Alternatively, you can use console.log to log to the console
-            // console.log('Window Size: Width = ' + width + ', Height = ' + height);
-        }
-
-        // Call the function when the page loads
-        window.onload = getWindowSize;
-
-        
-    function adjustIframeSize() {
-        const header = document.querySelector('header');
-        const iframe = document.querySelector('iframe');
-
-        // Calculate the total height available for the iframe
-        const totalHeight = window.innerHeight;
-        const headerHeight = header.offsetHeight;
-
-        // Compute margins and paddings if any
-        const bodyStyle = window.getComputedStyle(document.body);
-        const marginTop = parseInt(bodyStyle.marginTop, 10);
-        const marginBottom = parseInt(bodyStyle.marginBottom, 10);
-        const paddingTop = parseInt(bodyStyle.paddingTop, 10);
-        const paddingBottom = parseInt(bodyStyle.paddingBottom, 10);
-
-        // Adjust the iframe height
-        const iframeHeight = totalHeight - (headerHeight + marginTop + marginBottom + paddingTop + paddingBottom);
-        iframe.style.height = `${Math.max(iframeHeight, 0)}px`; // Ensure the height is not negative
-    }
-
-    // Adjust the size on window load and resize
-    window.onload = adjustIframeSize;
-    window.onresize = adjustIframeSize;
-    </script>
-
+    <a href="https://drive.google.com/file/d/1sA2MKxfZFUGxtHPEQlSL2byzZhs-4AwO/view?usp=sharing">Read the Players Handbook here</a>
+    <!-- <iframe src="./[PHB] One Piece Dungeons and Devil Fruits (5e System).pdf" width="600" height="400"></iframe> -->
 </body>
 </html>
