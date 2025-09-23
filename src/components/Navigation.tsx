@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { Box, IconButton, Typography, Tooltip } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
 import WorkOutlineOutlinedIcon from '@mui/icons-material/WorkOutlineOutlined';
 import EmojiEventsOutlinedIcon from '@mui/icons-material/EmojiEventsOutlined';
 import PermIdentityOutlinedIcon from '@mui/icons-material/PermIdentityOutlined';
-import AutoStoriesOutlinedIcon from '@mui/icons-material/AutoStoriesOutlined';
+
 import MailOutlineOutlinedIcon from '@mui/icons-material/MailOutlineOutlined';
 
 const HotbarContainer = styled(Box)(({ theme }) => ({
@@ -29,7 +29,9 @@ const HotbarContainer = styled(Box)(({ theme }) => ({
   },
 }));
 
-const HotbarButton = styled(IconButton)(({ theme, active }: { theme: any; active: boolean }) => ({
+const HotbarButton = styled(IconButton, {
+  shouldForwardProp: (prop) => prop !== 'active',
+})<{ active: boolean }>(({ theme, active }) => ({
   width: '60px',
   height: '60px',
   borderRadius: '50%',
@@ -68,14 +70,13 @@ const HotbarButton = styled(IconButton)(({ theme, active }: { theme: any; active
 const Navigation: React.FC = () => {
   const [activeSection, setActiveSection] = useState('hero');
 
-  const navItems = [
+  const navItems = useMemo(() => [
     { id: 'hero', icon: HomeOutlinedIcon, label: 'Home', color: 'primary' },
     { id: 'projects', icon: WorkOutlineOutlinedIcon, label: 'Projects', color: 'secondary' },
     { id: 'skills', icon: EmojiEventsOutlinedIcon, label: 'Skills', color: 'success' },
     { id: 'about', icon: PermIdentityOutlinedIcon, label: 'About', color: 'primary' },
-    { id: 'blog', icon: AutoStoriesOutlinedIcon, label: 'Blog', color: 'success' },
-    { id: 'contact', icon: MailOutlineOutlinedIcon, label: 'Contact', color: 'primary' },
-  ];
+{ id: 'contact', icon: MailOutlineOutlinedIcon, label: 'Contact', color: 'primary' },
+  ], []);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -93,7 +94,7 @@ const Navigation: React.FC = () => {
 
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  }, [navItems]);
 
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId);

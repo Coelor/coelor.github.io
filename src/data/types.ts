@@ -57,16 +57,6 @@ export interface Project {
   githubUrl?: string;
 }
 
-export interface BlogPost {
-  title: string;
-  date: string;
-  category: string;
-  excerpt: string;
-  readTime: string;
-  tags: string[];
-  url?: string;
-}
-
 export interface PortfolioData {
   personal: PersonalInfo;
   stats: Stat[];
@@ -77,5 +67,5 @@ export interface PortfolioData {
   about: AboutContent;
   skills: SkillCategory[];
   projects: Project[];
-  blog: BlogPost[];
+
 }

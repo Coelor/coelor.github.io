@@ -2,6 +2,7 @@ import React from 'react';
 import { Box, Typography, Stack, Chip, LinearProgress } from '@mui/material';
 import { styled } from '@mui/material/styles';
 
+import { portfolioData } from '../data/portfolioData';
 const SkillCard = styled(Box)(({ theme }) => ({
   background: `linear-gradient(135deg, ${theme.palette.background.paper} 0%, rgba(57, 255, 20, 0.1) 100%)`,
   border: `1px solid ${theme.palette.success.main}40`,
@@ -24,35 +25,7 @@ const SkillLevel = styled(Box)(({ theme }) => ({
 }));
 
 const SkillsSection: React.FC = () => {
-  const skillCategories = [
-    {
-      title: 'Frontend Arsenal',
-      skills: [
-        { name: 'React/Next.js', level: 95, experience: '5+ years' },
-        { name: 'TypeScript', level: 90, experience: '4+ years' },
-        { name: 'Vue.js', level: 85, experience: '3+ years' },
-        { name: 'CSS/SCSS', level: 90, experience: '6+ years' },
-      ],
-    },
-    {
-      title: 'Backend Mastery',
-      skills: [
-        { name: 'Node.js', level: 90, experience: '4+ years' },
-        { name: 'Python', level: 85, experience: '3+ years' },
-        { name: 'PostgreSQL', level: 80, experience: '3+ years' },
-        { name: 'MongoDB', level: 75, experience: '2+ years' },
-      ],
-    },
-    {
-      title: 'DevOps & Tools',
-      skills: [
-        { name: 'Docker', level: 80, experience: '3+ years' },
-        { name: 'AWS', level: 75, experience: '2+ years' },
-        { name: 'Git', level: 95, experience: '6+ years' },
-        { name: 'CI/CD', level: 70, experience: '2+ years' },
-      ],
-    },
-  ];
+  const skillCategories = portfolioData.skills;
 
   return (
     <Box id="skills" sx={{ py: 8 }}>

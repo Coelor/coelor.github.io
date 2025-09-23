@@ -1,6 +1,7 @@
 import React from 'react';
-import { Box, Typography, Stack } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import { styled } from '@mui/material/styles';
+import { portfolioData } from '../data/portfolioData';
 
 const LoreCard = styled(Box)(({ theme }) => ({
   background: `linear-gradient(135deg, ${theme.palette.background.paper} 0%, rgba(0, 245, 255, 0.05) 100%)`,
@@ -91,44 +92,6 @@ const TimelineContent = styled(Box)(({ theme }) => ({
 }));
 
 const AboutSection: React.FC = () => {
-  const timeline = [
-    {
-      year: '2018',
-      title: 'The Beginning',
-      description: 'Started the coding journey with HTML, CSS, and JavaScript. First steps into the digital realm.',
-    },
-    {
-      year: '2019',
-      title: 'Framework Discovery',
-      description: 'Discovered React and fell in love with component-based architecture. Built first SPA.',
-    },
-    {
-      year: '2020',
-      title: 'Full Stack Evolution',
-      description: 'Expanded to backend development with Node.js and databases. Became a full-stack warrior.',
-    },
-    {
-      year: '2021',
-      title: 'Professional Quest',
-      description: 'Joined first tech company as a Junior Developer. Started working on real-world projects.',
-    },
-    {
-      year: '2022',
-      title: 'Senior Promotion',
-      description: 'Promoted to Senior Developer. Led team projects and mentored junior developers.',
-    },
-    {
-      year: '2023',
-      title: 'Freelance Adventure',
-      description: 'Started freelancing and built multiple successful projects for various clients.',
-    },
-    {
-      year: '2024',
-      title: 'Current Chapter',
-      description: 'Continuing to grow, learn new technologies, and take on challenging projects.',
-    },
-  ];
-
   return (
     <Box id="about" sx={{ py: 8 }}>
       <Typography variant="h2" color="primary" gutterBottom textAlign="center" sx={{ mb: 6 }}>
@@ -137,17 +100,18 @@ const AboutSection: React.FC = () => {
       
       <LoreCard>
         <Typography variant="h4" color="primary" gutterBottom>
-          Origin Story
+          {portfolioData.about.originStory.title}
         </Typography>
-        <Typography variant="body1" color="text.secondary" sx={{ lineHeight: 1.8, mb: 3 }}>
-          In the vast digital realm, a curious mind discovered the power of code. What started as simple HTML pages 
-          evolved into a passion for creating digital experiences that matter. Through countless hours of debugging, 
-          learning new frameworks, and solving complex problems, a developer was forged.
-        </Typography>
-        <Typography variant="body1" color="text.secondary" sx={{ lineHeight: 1.8 }}>
-          Today, this journey continues with each new project, each challenge overcome, and each line of code written. 
-          The quest for knowledge never ends, and the adventure in technology keeps evolving.
-        </Typography>
+        {portfolioData.about.originStory.paragraphs.map((paragraph, index) => (
+          <Typography 
+            key={index}
+            variant="body1" 
+            color="text.secondary" 
+            sx={{ lineHeight: 1.8, mb: index === portfolioData.about.originStory.paragraphs.length - 1 ? 0 : 3 }}
+          >
+            {paragraph}
+          </Typography>
+        ))}
       </LoreCard>
 
       <Box>
@@ -156,7 +120,7 @@ const AboutSection: React.FC = () => {
         </Typography>
         
         <CustomTimelineContainer>
-          {timeline.map((event, index) => (
+          {portfolioData.about.timeline.map((event, index) => (
             <TimelineItemContainer key={index}>
               <GlowingTimelineDot />
               <TimelineContent>

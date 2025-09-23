@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Box, Typography, Stack, TextField, Button, Card, CardContent, Chip } from '@mui/material';
 import { styled } from '@mui/material/styles';
 
+import { portfolioData } from '../data/portfolioData';
 const CommunicationInterface = styled(Card)(({ theme }) => ({
   background: `linear-gradient(135deg, ${theme.palette.background.paper} 0%, rgba(0, 245, 255, 0.05) 100%)`,
   border: `2px solid ${theme.palette.primary.main}40`,
@@ -67,12 +68,7 @@ const ContactSection: React.FC = () => {
     console.log('Message sent:', formData);
   };
 
-  const contactMethods = [
-    { label: 'Email', value: 'john.doe@example.com', status: 'Online' },
-    { label: 'LinkedIn', value: '/in/johndoe', status: 'Active' },
-    { label: 'GitHub', value: '/johndoe', status: 'Active' },
-    { label: 'Discord', value: 'JohnDoe#1234', status: 'Available' },
-  ];
+  const contactMethods = portfolioData.contact.methods;
 
   return (
     <Box id="contact" sx={{ py: 8 }}>
@@ -181,6 +177,7 @@ const ContactSection: React.FC = () => {
                         boxShadow: (theme) => `0 0 15px ${theme.palette.secondary.main}30`,
                       },
                     }}
+                    onClick={() => method.url && window.open(method.url, '_blank')}
                   >
                     <Stack direction="row" justifyContent="space-between" alignItems="center">
                       <Box>
@@ -209,8 +206,7 @@ const ContactSection: React.FC = () => {
                   Response Protocol
                 </Typography>
                 <Typography variant="body2" color="text.secondary">
-                  All incoming transmissions are processed within 24 hours. Priority messages 
-                  regarding collaboration opportunities receive immediate attention.
+                  {portfolioData.contact.responseMessage}
                 </Typography>
               </Box>
             </CardContent>

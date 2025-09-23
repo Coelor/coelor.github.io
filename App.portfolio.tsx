@@ -6,7 +6,7 @@ import HeroSection from './src/components/HeroSection';
 import SkillsSection from './src/components/SkillsSection';
 import ProjectsSection from './src/components/ProjectsSection';
 import AboutSection from './src/components/AboutSection';
-import BlogSection from './src/components/BlogSection';
+
 import ContactSection from './src/components/ContactSection';
 import Navigation from './src/components/Navigation';
 
@@ -47,8 +47,7 @@ const App: React.FC = () => {
           <SkillsSection />
           <ProjectsSection />
           <AboutSection />
-          <BlogSection />
-          <ContactSection />
+<ContactSection />
         </Container>
         <Navigation />
       </Box>

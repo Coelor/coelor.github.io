@@ -1,6 +1,7 @@
 import React from 'react';
 import { Box, Typography, Avatar, Stack, Chip, LinearProgress } from '@mui/material';
 import { styled } from '@mui/material/styles';
+import { portfolioData } from '../data/portfolioData';
 
 const GlowingCard = styled(Box)(({ theme }) => ({
   background: `linear-gradient(135deg, ${theme.palette.background.paper} 0%, rgba(0, 245, 255, 0.1) 100%)`,
@@ -45,28 +46,21 @@ const GlowingAvatar = styled(Avatar)(({ theme }) => ({
 }));
 
 const HeroSection: React.FC = () => {
-  const stats = [
-    { label: 'Frontend', value: 95 },
-    { label: 'Backend', value: 85 },
-    { label: 'DevOps', value: 75 },
-    { label: 'Design', value: 80 },
-  ];
-
   return (
     <Box id="hero" sx={{ minHeight: '100vh', display: 'flex', alignItems: 'center', py: 4 }}>
       <GlowingCard sx={{ width: '100%', maxWidth: 800, mx: 'auto' }}>
         <Stack direction={{ xs: 'column', md: 'row' }} spacing={4} alignItems="center">
           <Box sx={{ textAlign: 'center' }}>
             <GlowingAvatar
-              src="https://i.pravatar.cc/150?img=12"
+              src={portfolioData.personal.avatar}
               alt="Character Avatar"
               sx={{ mx: 'auto', mb: 2 }}
             />
             <Typography variant="h4" color="primary" gutterBottom>
-              Level 99 Developer
+              {portfolioData.personal.level}
             </Typography>
             <Chip
-              label="Full Stack Wizard"
+              label={portfolioData.personal.role}
               color="secondary"
               sx={{ 
                 fontSize: '0.9rem',
@@ -78,17 +72,17 @@ const HeroSection: React.FC = () => {
           
           <Box sx={{ flex: 1, width: '100%' }}>
             <Typography variant="h2" gutterBottom sx={{ textAlign: { xs: 'center', md: 'left' } }}>
-              John Doe
+              {portfolioData.personal.name}
             </Typography>
             <Typography variant="h6" color="text.secondary" gutterBottom sx={{ textAlign: { xs: 'center', md: 'left' } }}>
-              Senior Software Engineer & Digital Architect
+              {portfolioData.personal.title}
             </Typography>
             
             <Box sx={{ mt: 3 }}>
               <Typography variant="h6" color="primary" gutterBottom>
                 Core Stats
               </Typography>
-              {stats.map((stat) => (
+              {portfolioData.stats.map((stat) => (
                 <StatBar key={stat.label}>
                   <Typography variant="body2" sx={{ minWidth: 80 }}>
                     {stat.label}
