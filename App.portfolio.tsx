@@ -6,11 +6,14 @@ import HeroSection from './src/components/HeroSection';
 import SkillsSection from './src/components/SkillsSection';
 import ProjectsSection from './src/components/ProjectsSection';
 import AboutSection from './src/components/AboutSection';
-
+import BlogSection from './src/components/BlogSection';
 import ContactSection from './src/components/ContactSection';
 import Navigation from './src/components/Navigation';
+import { usePortfolioData } from './src/hooks/usePortfolioData';
 
 const App: React.FC = () => {
+  const portfolioData = usePortfolioData();
+
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
@@ -43,11 +46,26 @@ const App: React.FC = () => {
         }}
       >
         <Container maxWidth="lg" sx={{ position: 'relative', zIndex: 1 }}>
-          <HeroSection />
-          <SkillsSection />
-          <ProjectsSection />
-          <AboutSection />
-<ContactSection />
+          <HeroSection 
+            personal={portfolioData.personal} 
+            coreStats={portfolioData.coreStats} 
+          />
+          <SkillsSection 
+            skillCategories={portfolioData.skillCategories} 
+          />
+          <ProjectsSection 
+            projects={portfolioData.projects} 
+          />
+          <AboutSection 
+            personal={portfolioData.personal} 
+            timeline={portfolioData.timeline} 
+          />
+          {/* <BlogSection 
+            blogPosts={portfolioData.blogPosts} 
+          /> */}
+          <ContactSection 
+            contactMethods={portfolioData.contactMethods} 
+          />
         </Container>
         <Navigation />
       </Box>

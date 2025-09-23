@@ -1,7 +1,7 @@
 import React from 'react';
-import { Box, Typography } from '@mui/material';
+import { Box, Typography, Stack } from '@mui/material';
 import { styled } from '@mui/material/styles';
-import { portfolioData } from '../data/portfolioData';
+import { AboutSectionProps } from '../types/portfolio';
 
 const LoreCard = styled(Box)(({ theme }) => ({
   background: `linear-gradient(135deg, ${theme.palette.background.paper} 0%, rgba(0, 245, 255, 0.05) 100%)`,
@@ -91,7 +91,7 @@ const TimelineContent = styled(Box)(({ theme }) => ({
   },
 }));
 
-const AboutSection: React.FC = () => {
+const AboutSection: React.FC<AboutSectionProps> = ({ personal, timeline }) => {
   return (
     <Box id="about" sx={{ py: 8 }}>
       <Typography variant="h2" color="primary" gutterBottom textAlign="center" sx={{ mb: 6 }}>
@@ -100,18 +100,14 @@ const AboutSection: React.FC = () => {
       
       <LoreCard>
         <Typography variant="h4" color="primary" gutterBottom>
-          {portfolioData.about.originStory.title}
+          Origin Story
         </Typography>
-        {portfolioData.about.originStory.paragraphs.map((paragraph, index) => (
-          <Typography 
-            key={index}
-            variant="body1" 
-            color="text.secondary" 
-            sx={{ lineHeight: 1.8, mb: index === portfolioData.about.originStory.paragraphs.length - 1 ? 0 : 3 }}
-          >
-            {paragraph}
-          </Typography>
-        ))}
+        <Typography variant="body1" color="text.secondary" sx={{ lineHeight: 1.8, mb: 3 }}>
+          {personal.bio.origin}
+        </Typography>
+        <Typography variant="body1" color="text.secondary" sx={{ lineHeight: 1.8 }}>
+          {personal.bio.current}
+        </Typography>
       </LoreCard>
 
       <Box>
@@ -120,7 +116,7 @@ const AboutSection: React.FC = () => {
         </Typography>
         
         <CustomTimelineContainer>
-          {portfolioData.about.timeline.map((event, index) => (
+          {timeline.map((event, index) => (
             <TimelineItemContainer key={index}>
               <GlowingTimelineDot />
               <TimelineContent>

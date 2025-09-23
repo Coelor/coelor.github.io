@@ -1,7 +1,7 @@
 import React from 'react';
 import { Box, Typography, Avatar, Stack, Chip, LinearProgress } from '@mui/material';
 import { styled } from '@mui/material/styles';
-import { portfolioData } from '../data/portfolioData';
+import { HeroSectionProps } from '../types/portfolio';
 
 const GlowingCard = styled(Box)(({ theme }) => ({
   background: `linear-gradient(135deg, ${theme.palette.background.paper} 0%, rgba(0, 245, 255, 0.1) 100%)`,
@@ -45,22 +45,22 @@ const GlowingAvatar = styled(Avatar)(({ theme }) => ({
   },
 }));
 
-const HeroSection: React.FC = () => {
+const HeroSection: React.FC<HeroSectionProps> = ({ personal, coreStats }) => {
   return (
     <Box id="hero" sx={{ minHeight: '100vh', display: 'flex', alignItems: 'center', py: 4 }}>
       <GlowingCard sx={{ width: '100%', maxWidth: 800, mx: 'auto' }}>
         <Stack direction={{ xs: 'column', md: 'row' }} spacing={4} alignItems="center">
           <Box sx={{ textAlign: 'center' }}>
             <GlowingAvatar
-              src={portfolioData.personal.avatar}
+              src={personal.avatar}
               alt="Character Avatar"
               sx={{ mx: 'auto', mb: 2 }}
             />
             <Typography variant="h4" color="primary" gutterBottom>
-              {portfolioData.personal.level}
+              {personal.level}
             </Typography>
             <Chip
-              label={portfolioData.personal.role}
+              label={personal.role}
               color="secondary"
               sx={{ 
                 fontSize: '0.9rem',
@@ -72,17 +72,17 @@ const HeroSection: React.FC = () => {
           
           <Box sx={{ flex: 1, width: '100%' }}>
             <Typography variant="h2" gutterBottom sx={{ textAlign: { xs: 'center', md: 'left' } }}>
-              {portfolioData.personal.name}
+              {personal.name}
             </Typography>
             <Typography variant="h6" color="text.secondary" gutterBottom sx={{ textAlign: { xs: 'center', md: 'left' } }}>
-              {portfolioData.personal.title}
+              {personal.title}
             </Typography>
             
             <Box sx={{ mt: 3 }}>
               <Typography variant="h6" color="primary" gutterBottom>
                 Core Stats
               </Typography>
-              {portfolioData.stats.map((stat) => (
+              {coreStats.map((stat) => (
                 <StatBar key={stat.label}>
                   <Typography variant="body2" sx={{ minWidth: 80 }}>
                     {stat.label}

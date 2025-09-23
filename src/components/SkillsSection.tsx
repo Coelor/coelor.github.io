@@ -1,8 +1,8 @@
 import React from 'react';
 import { Box, Typography, Stack, Chip, LinearProgress } from '@mui/material';
 import { styled } from '@mui/material/styles';
+import { SkillsSectionProps } from '../types/portfolio';
 
-import { portfolioData } from '../data/portfolioData';
 const SkillCard = styled(Box)(({ theme }) => ({
   background: `linear-gradient(135deg, ${theme.palette.background.paper} 0%, rgba(57, 255, 20, 0.1) 100%)`,
   border: `1px solid ${theme.palette.success.main}40`,
@@ -24,9 +24,7 @@ const SkillLevel = styled(Box)(({ theme }) => ({
   marginTop: theme.spacing(2),
 }));
 
-const SkillsSection: React.FC = () => {
-  const skillCategories = portfolioData.skills;
-
+const SkillsSection: React.FC<SkillsSectionProps> = ({ skillCategories }) => {
   return (
     <Box id="skills" sx={{ py: 8 }}>
       <Typography variant="h2" color="success.main" gutterBottom textAlign="center" sx={{ mb: 6 }}>
