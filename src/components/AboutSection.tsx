@@ -1,11 +1,17 @@
-import React from 'react';
 import { Box, Typography, Stack } from '@mui/material';
 import { styled } from '@mui/material/styles';
-import { AboutSectionProps } from '../types/portfolio';
+import type { AboutSectionProps } from '../types/portfolio';
 
-const LoreCard = styled(Box)(({ theme }) => ({
-  background: `linear-gradient(135deg, ${theme.palette.background.paper} 0%, rgba(0, 245, 255, 0.05) 100%)`,
-  border: `1px solid ${theme.palette.primary.main}40`,
+const SectionContainer = styled(Box)(({ theme }) => ({
+  padding: theme.spacing(10, 0),
+  [theme.breakpoints.down('md')]: {
+    padding: theme.spacing(6, 0),
+  },
+}));
+
+const BioCard = styled(Box)(({ theme }) => ({
+  background: theme.palette.background.paper,
+  border: `1px solid ${theme.palette.divider}`,
   borderRadius: '16px',
   padding: theme.spacing(4),
   marginBottom: theme.spacing(4),
@@ -18,11 +24,11 @@ const LoreCard = styled(Box)(({ theme }) => ({
     width: '4px',
     height: '100%',
     background: `linear-gradient(180deg, ${theme.palette.primary.main}, ${theme.palette.secondary.main})`,
-    borderRadius: '2px',
+    borderRadius: '2px 0 0 2px',
   },
 }));
 
-const CustomTimelineContainer = styled(Box)(({ theme }) => ({
+const TimelineContainer = styled(Box)(({ theme }) => ({
   position: 'relative',
   '&::before': {
     content: '""',
@@ -33,7 +39,6 @@ const CustomTimelineContainer = styled(Box)(({ theme }) => ({
     width: '2px',
     background: `linear-gradient(180deg, ${theme.palette.primary.main}, ${theme.palette.secondary.main})`,
     transform: 'translateX(-50%)',
-    boxShadow: `0 0 10px ${theme.palette.primary.main}40`,
   },
   [theme.breakpoints.down('md')]: {
     '&::before': {
@@ -42,7 +47,7 @@ const CustomTimelineContainer = styled(Box)(({ theme }) => ({
   },
 }));
 
-const TimelineItemContainer = styled(Box)(({ theme }) => ({
+const TimelineItem = styled(Box)(({ theme }) => ({
   display: 'flex',
   alignItems: 'center',
   marginBottom: theme.spacing(4),
@@ -59,22 +64,16 @@ const TimelineItemContainer = styled(Box)(({ theme }) => ({
   },
 }));
 
-const GlowingTimelineDot = styled(Box)(({ theme }) => ({
-  width: '20px',
-  height: '20px',
+const TimelineDot = styled(Box)(({ theme }) => ({
+  width: '16px',
+  height: '16px',
   borderRadius: '50%',
   backgroundColor: theme.palette.primary.main,
-  boxShadow: `0 0 15px ${theme.palette.primary.main}60`,
-  animation: 'pulse 2s infinite',
+  border: `3px solid ${theme.palette.background.paper}`,
   position: 'absolute',
   left: '50%',
   transform: 'translateX(-50%)',
   zIndex: 2,
-  '@keyframes pulse': {
-    '0%': { boxShadow: `0 0 15px ${theme.palette.primary.main}60` },
-    '50%': { boxShadow: `0 0 25px ${theme.palette.primary.main}80` },
-    '100%': { boxShadow: `0 0 15px ${theme.palette.primary.main}60` },
-  },
   [theme.breakpoints.down('md')]: {
     left: '20px',
   },
@@ -91,16 +90,43 @@ const TimelineContent = styled(Box)(({ theme }) => ({
   },
 }));
 
-const AboutSection: React.FC<AboutSectionProps> = ({ personal, timeline }) => {
+const TimelineCard = styled(Box)(({ theme }) => ({
+  background: theme.palette.background.paper,
+  border: `1px solid ${theme.palette.divider}`,
+  borderRadius: '12px',
+  padding: theme.spacing(3),
+  transition: 'all 0.3s ease',
+  '&:hover': {
+    borderColor: theme.palette.primary.main,
+    boxShadow: `0 4px 16px ${theme.palette.primary.main}15`,
+    transform: 'translateY(-4px)',
+  },
+}));
+
+const AboutSection = ({ personal, timeline }: AboutSectionProps) => {
   return (
-    <Box id="about" sx={{ py: 8 }}>
-      <Typography variant="h2" color="primary" gutterBottom textAlign="center" sx={{ mb: 6 }}>
-        Character Lore
-      </Typography>
+    <SectionContainer id="about">
+      <Box sx={{ textAlign: 'center', mb: 8 }}>
+        <Typography 
+          variant="h2" 
+          gutterBottom
+          sx={{
+            background: (theme) => `linear-gradient(135deg, ${theme.palette.primary.main}, ${theme.palette.secondary.main})`,
+            WebkitBackgroundClip: 'text',
+            WebkitTextFillColor: 'transparent',
+            backgroundClip: 'text',
+          }}
+        >
+          About Me
+        </Typography>
+        <Typography variant="body1" color="text.secondary" sx={{ maxWidth: '600px', mx: 'auto', mt: 2 }}>
+          My journey, experience, and what drives me as a developer
+        </Typography>
+      </Box>
       
-      <LoreCard>
+      <BioCard>
         <Typography variant="h4" color="primary" gutterBottom>
-          Origin Story
+          Background
         </Typography>
         <Typography variant="body1" color="text.secondary" sx={{ lineHeight: 1.8, mb: 3 }}>
           {personal.bio.origin}
@@ -108,46 +134,35 @@ const AboutSection: React.FC<AboutSectionProps> = ({ personal, timeline }) => {
         <Typography variant="body1" color="text.secondary" sx={{ lineHeight: 1.8 }}>
           {personal.bio.current}
         </Typography>
-      </LoreCard>
+      </BioCard>
 
       <Box>
-        <Typography variant="h4" color="secondary.main" gutterBottom sx={{ mb: 4 }}>
-          Character Timeline
+        <Typography variant="h4" color="primary" gutterBottom sx={{ mb: 4, textAlign: 'center' }}>
+          Career Timeline
         </Typography>
         
-        <CustomTimelineContainer>
+        <TimelineContainer>
           {timeline.map((event, index) => (
-            <TimelineItemContainer key={index}>
-              <GlowingTimelineDot />
+            <TimelineItem key={index}>
+              <TimelineDot />
               <TimelineContent>
-                <Box
-                  sx={{
-                    background: (theme) => `linear-gradient(135deg, ${theme.palette.background.paper} 0%, rgba(255, 107, 53, 0.05) 100%)`,
-                    border: (theme) => `1px solid ${theme.palette.secondary.main}40`,
-                    borderRadius: '12px',
-                    p: 3,
-                    transition: 'all 0.3s ease',
-                    cursor: 'pointer',
-                    '&:hover': {
-                      border: (theme) => `2px solid ${theme.palette.secondary.main}`,
-                      boxShadow: (theme) => `0 0 20px ${theme.palette.secondary.main}30`,
-                      transform: 'translateY(-4px)',
-                    },
-                  }}
-                >
+                <TimelineCard>
                   <Typography variant="h6" color="secondary.main" gutterBottom>
-                    {event.year} - {event.title}
+                    {event.year}
                   </Typography>
-                  <Typography variant="body2" color="text.secondary">
+                  <Typography variant="h5" gutterBottom sx={{ fontSize: '1.1rem', fontWeight: 600 }}>
+                    {event.title}
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary" sx={{ lineHeight: 1.6 }}>
                     {event.description}
                   </Typography>
-                </Box>
+                </TimelineCard>
               </TimelineContent>
-            </TimelineItemContainer>
+            </TimelineItem>
           ))}
-        </CustomTimelineContainer>
+        </TimelineContainer>
       </Box>
-    </Box>
+    </SectionContainer>
   );
 };
 

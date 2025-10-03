@@ -1,81 +1,76 @@
-import React, { useState, useEffect, useMemo } from 'react';
-import { Box, IconButton, Typography, Tooltip } from '@mui/material';
+import { useState, useEffect, useMemo } from 'react';
+import { Box, Button, Stack, useScrollTrigger, Slide } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
 import WorkOutlineOutlinedIcon from '@mui/icons-material/WorkOutlineOutlined';
 import EmojiEventsOutlinedIcon from '@mui/icons-material/EmojiEventsOutlined';
 import PermIdentityOutlinedIcon from '@mui/icons-material/PermIdentityOutlined';
-
 import MailOutlineOutlinedIcon from '@mui/icons-material/MailOutlineOutlined';
 
-const HotbarContainer = styled(Box)(({ theme }) => ({
+const NavContainer = styled(Box)(({ theme }) => ({
   position: 'fixed',
-  bottom: '20px',
+  bottom: '24px',
   left: '50%',
   transform: 'translateX(-50%)',
-  background: `linear-gradient(135deg, ${theme.palette.background.paper}E6 0%, rgba(0, 245, 255, 0.1) 100%)`,
-  backdropFilter: 'blur(10px)',
-  border: `2px solid ${theme.palette.primary.main}60`,
-  borderRadius: '50px',
-  padding: theme.spacing(1),
+  background: `${theme.palette.background.paper}F5`,
+  backdropFilter: 'blur(12px)',
+  border: `1px solid ${theme.palette.divider}`,
+  borderRadius: '16px',
+  padding: theme.spacing(1.5),
   display: 'flex',
   gap: theme.spacing(1),
-  boxShadow: `0 0 30px ${theme.palette.primary.main}30`,
+  boxShadow: '0 8px 32px rgba(0, 0, 0, 0.4)',
   zIndex: 1000,
-  animation: 'float 3s ease-in-out infinite',
-  '@keyframes float': {
-    '0%, 100%': { transform: 'translateX(-50%) translateY(0px)' },
-    '50%': { transform: 'translateX(-50%) translateY(-5px)' },
+  [theme.breakpoints.down('sm')]: {
+    bottom: '16px',
+    padding: theme.spacing(1),
+    gap: theme.spacing(0.5),
   },
 }));
 
-const HotbarButton = styled(IconButton, {
+const NavButton = styled(Button, {
   shouldForwardProp: (prop) => prop !== 'active',
 })<{ active: boolean }>(({ theme, active }) => ({
-  width: '60px',
-  height: '60px',
-  borderRadius: '50%',
-  background: active 
-    ? `linear-gradient(135deg, ${theme.palette.primary.main}, ${theme.palette.secondary.main})`
-    : 'rgba(255, 255, 255, 0.1)',
-  border: active 
-    ? `2px solid ${theme.palette.primary.main}`
-    : `2px solid transparent`,
-  color: active ? theme.palette.common.black : theme.palette.text.primary,
+  minWidth: '48px',
+  width: '48px',
+  height: '48px',
+  borderRadius: '12px',
+  padding: 0,
+  backgroundColor: active ? theme.palette.primary.main : 'transparent',
+  color: active ? theme.palette.primary.contrastText : theme.palette.text.secondary,
+  border: active ? 'none' : `1px solid transparent`,
   transition: 'all 0.3s ease',
-  position: 'relative',
-  overflow: 'hidden',
   '&:hover': {
-    background: `linear-gradient(135deg, ${theme.palette.primary.main}80, ${theme.palette.secondary.main}80)`,
-    border: `2px solid ${theme.palette.primary.main}`,
-    color: theme.palette.common.black,
-    transform: 'scale(1.1)',
-    boxShadow: `0 0 20px ${theme.palette.primary.main}60`,
+    backgroundColor: active ? theme.palette.primary.dark : `${theme.palette.primary.main}20`,
+    color: active ? theme.palette.primary.contrastText : theme.palette.primary.main,
+    borderColor: theme.palette.primary.main,
   },
-  '&::before': {
-    content: '""',
-    position: 'absolute',
-    top: 0,
-    left: '-100%',
-    width: '100%',
-    height: '100%',
-    background: `linear-gradient(90deg, transparent, ${theme.palette.primary.main}40, transparent)`,
-    transition: 'left 0.5s',
+  '& .MuiSvgIcon-root': {
+    fontSize: '22px',
   },
-  '&:hover::before': {
-    left: '100%',
+  [theme.breakpoints.down('sm')]: {
+    minWidth: '44px',
+    width: '44px',
+    height: '44px',
+    '& .MuiSvgIcon-root': {
+      fontSize: '20px',
+    },
   },
 }));
 
-const Navigation: React.FC = () => {
+const Navigation = () => {
   const [activeSection, setActiveSection] = useState('hero');
+  const trigger = useScrollTrigger({
+    disableHysteresis: true,
+    threshold: 100,
+  });
 
   const navItems = useMemo(() => [
-    { id: 'hero', icon: HomeOutlinedIcon, label: 'Home', color: 'primary' },
-    { id: 'projects', icon: WorkOutlineOutlinedIcon, label: 'Projects', color: 'secondary' },
-    { id: 'skills', icon: EmojiEventsOutlinedIcon, label: 'Skills', color: 'success' },
-    { id: 'about', icon: PermIdentityOutlinedIcon, label: 'About', color: 'primary' },
-{ id: 'contact', icon: MailOutlineOutlinedIcon, label: 'Contact', color: 'primary' },
+    { id: 'hero', icon: HomeOutlinedIcon, label: 'Home' },
+    { id: 'skills', icon: EmojiEventsOutlinedIcon, label: 'Skills' },
+    { id: 'projects', icon: WorkOutlineOutlinedIcon, label: 'Projects' },
+    { id: 'about', icon: PermIdentityOutlinedIcon, label: 'About' },
+    { id: 'contact', icon: MailOutlineOutlinedIcon, label: 'Contact' },
   ], []);
 
   useEffect(() => {
@@ -104,36 +99,25 @@ const Navigation: React.FC = () => {
   };
 
   return (
-    <HotbarContainer>
-      {navItems.map((item) => {
-        const IconComponent = item.icon;
-        return (
-          <Tooltip 
-            key={item.id} 
-            title={
-              <Box sx={{ textAlign: 'center' }}>
-                <Typography variant="body2" fontWeight="bold">
-                  {item.label}
-                </Typography>
-                <Typography variant="caption" color="text.secondary">
-                  Navigate to {item.label.toLowerCase()}
-                </Typography>
-              </Box>
-            }
-            placement="top"
-            arrow
-          >
-            <HotbarButton
-              active={activeSection === item.id}
-              onClick={() => scrollToSection(item.id)}
-              aria-label={item.label}
-            >
-              <IconComponent sx={{ fontSize: '28px' }} />
-            </HotbarButton>
-          </Tooltip>
-        );
-      })}
-    </HotbarContainer>
+    <Slide appear={false} direction="up" in={!trigger || activeSection !== 'hero'}>
+      <NavContainer>
+        <Stack direction="row" spacing={1}>
+          {navItems.map((item) => {
+            const IconComponent = item.icon;
+            return (
+              <NavButton
+                key={item.id}
+                active={activeSection === item.id}
+                onClick={() => scrollToSection(item.id)}
+                aria-label={item.label}
+              >
+                <IconComponent />
+              </NavButton>
+            );
+          })}
+        </Stack>
+      </NavContainer>
+    </Slide>
   );
 };
 

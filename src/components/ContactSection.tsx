@@ -1,53 +1,51 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Box, Typography, Stack, TextField, Button, Card, CardContent, Chip } from '@mui/material';
 import { styled } from '@mui/material/styles';
-import { ContactSectionProps, ContactForm } from '../types/portfolio';
+import type { ContactSectionProps, ContactForm } from '../types/portfolio';
 
-const CommunicationInterface = styled(Card)(({ theme }) => ({
-  background: `linear-gradient(135deg, ${theme.palette.background.paper} 0%, rgba(0, 245, 255, 0.05) 100%)`,
-  border: `2px solid ${theme.palette.primary.main}40`,
-  borderRadius: '16px',
-  position: 'relative',
-  overflow: 'hidden',
-  '&::before': {
-    content: '""',
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    right: 0,
-    height: '4px',
-    background: `linear-gradient(90deg, ${theme.palette.primary.main}, ${theme.palette.secondary.main}, ${theme.palette.success.main})`,
-    animation: 'scan 3s linear infinite',
-  },
-  '@keyframes scan': {
-    '0%': { transform: 'translateX(-100%)' },
-    '100%': { transform: 'translateX(100%)' },
+const SectionContainer = styled(Box)(({ theme }) => ({
+  padding: theme.spacing(10, 0),
+  [theme.breakpoints.down('md')]: {
+    padding: theme.spacing(6, 0),
   },
 }));
 
-const GlowingTextField = styled(TextField)(({ theme }) => ({
+const ContactCard = styled(Card)(({ theme }) => ({
+  background: theme.palette.background.paper,
+  border: `1px solid ${theme.palette.divider}`,
+  borderRadius: '16px',
+  boxShadow: 'none',
+}));
+
+const StyledTextField = styled(TextField)(({ theme }) => ({
   '& .MuiOutlinedInput-root': {
-    backgroundColor: 'rgba(255, 255, 255, 0.05)',
+    backgroundColor: theme.palette.background.default,
     '& fieldset': {
-      borderColor: theme.palette.primary.main + '40',
+      borderColor: theme.palette.divider,
     },
     '&:hover fieldset': {
-      borderColor: theme.palette.primary.main + '60',
+      borderColor: theme.palette.primary.main,
     },
     '&.Mui-focused fieldset': {
       borderColor: theme.palette.primary.main,
-      boxShadow: `0 0 10px ${theme.palette.primary.main}40`,
-    },
-  },
-  '& .MuiInputLabel-root': {
-    color: theme.palette.text.secondary,
-    '&.Mui-focused': {
-      color: theme.palette.primary.main,
     },
   },
 }));
 
-const ContactSection: React.FC<ContactSectionProps> = ({ contactMethods }) => {
+const ContactMethodCard = styled(Box)(({ theme }) => ({
+  padding: theme.spacing(3),
+  border: `1px solid ${theme.palette.divider}`,
+  borderRadius: '12px',
+  background: theme.palette.background.default,
+  transition: 'all 0.3s ease',
+  cursor: 'pointer',
+  '&:hover': {
+    borderColor: theme.palette.primary.main,
+    boxShadow: `0 4px 16px ${theme.palette.primary.main}15`,
+  },
+}));
+
+const ContactSection = ({ contactMethods }: ContactSectionProps) => {
   const [formData, setFormData] = useState<ContactForm>({
     name: '',
     email: '',
@@ -64,41 +62,54 @@ const ContactSection: React.FC<ContactSectionProps> = ({ contactMethods }) => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle form submission
     console.log('Message sent:', formData);
   };
 
   return (
-    <Box id="contact" sx={{ py: 8 }}>
-      <Typography variant="h2" color="primary" gutterBottom textAlign="center" sx={{ mb: 6 }}>
-        Communication Interface
-      </Typography>
+    <SectionContainer id="contact">
+      <Box sx={{ textAlign: 'center', mb: 8 }}>
+        <Typography 
+          variant="h2" 
+          gutterBottom
+          sx={{
+            background: (theme) => `linear-gradient(135deg, ${theme.palette.primary.main}, ${theme.palette.secondary.main})`,
+            WebkitBackgroundClip: 'text',
+            WebkitTextFillColor: 'transparent',
+            backgroundClip: 'text',
+          }}
+        >
+          Get In Touch
+        </Typography>
+        <Typography variant="body1" color="text.secondary" sx={{ maxWidth: '600px', mx: 'auto', mt: 2 }}>
+          Have a project in mind or want to collaborate? Let's connect
+        </Typography>
+      </Box>
       
       <Stack direction={{ xs: 'column', lg: 'row' }} spacing={4}>
         <Box sx={{ flex: 1 }}>
-          <CommunicationInterface>
+          <ContactCard>
             <CardContent sx={{ p: 4 }}>
               <Typography variant="h4" color="primary" gutterBottom>
-                Send Message
+                Send a Message
               </Typography>
               <Typography variant="body2" color="text.secondary" sx={{ mb: 4 }}>
-                Establish communication channel for collaboration opportunities
+                I'll get back to you as soon as possible
               </Typography>
               
               <Box component="form" onSubmit={handleSubmit}>
                 <Stack spacing={3}>
-                  <GlowingTextField
+                  <StyledTextField
                     fullWidth
-                    label="Commander Name"
+                    label="Name"
                     name="name"
                     value={formData.name}
                     onChange={handleChange}
                     required
                   />
                   
-                  <GlowingTextField
+                  <StyledTextField
                     fullWidth
-                    label="Communication Frequency (Email)"
+                    label="Email"
                     name="email"
                     type="email"
                     value={formData.email}
@@ -106,18 +117,18 @@ const ContactSection: React.FC<ContactSectionProps> = ({ contactMethods }) => {
                     required
                   />
                   
-                  <GlowingTextField
+                  <StyledTextField
                     fullWidth
-                    label="Mission Objective"
+                    label="Subject"
                     name="subject"
                     value={formData.subject}
                     onChange={handleChange}
                     required
                   />
                   
-                  <GlowingTextField
+                  <StyledTextField
                     fullWidth
-                    label="Detailed Mission Brief"
+                    label="Message"
                     name="message"
                     multiline
                     rows={6}
@@ -132,53 +143,38 @@ const ContactSection: React.FC<ContactSectionProps> = ({ contactMethods }) => {
                     color="primary"
                     size="large"
                     sx={{
-                      py: 2,
-                      fontSize: '1.1rem',
-                      fontWeight: 'bold',
-                      boxShadow: `0 0 20px ${(theme) => theme.palette.primary.main}40`,
-                      '&:hover': {
-                        boxShadow: `0 0 30px ${(theme) => theme.palette.primary.main}60`,
-                      },
+                      py: 1.5,
+                      fontSize: '1rem',
+                      fontWeight: 500,
                     }}
                   >
-                    Transmit Message
+                    Send Message
                   </Button>
                 </Stack>
               </Box>
             </CardContent>
-          </CommunicationInterface>
+          </ContactCard>
         </Box>
         
         <Box sx={{ flex: 1 }}>
-          <CommunicationInterface>
+          <ContactCard>
             <CardContent sx={{ p: 4 }}>
-              <Typography variant="h4" color="secondary.main" gutterBottom>
-                Active Channels
+              <Typography variant="h4" color="primary" gutterBottom>
+                Contact Information
               </Typography>
               <Typography variant="body2" color="text.secondary" sx={{ mb: 4 }}>
-                Available communication protocols and current status
+                Feel free to reach out through any of these channels
               </Typography>
               
               <Stack spacing={3}>
                 {contactMethods.map((method, index) => (
-                  <Box
+                  <ContactMethodCard
                     key={index}
-                    sx={{
-                      p: 3,
-                      border: (theme) => `1px solid ${theme.palette.secondary.main}40`,
-                      borderRadius: '12px',
-                      background: 'rgba(255, 107, 53, 0.05)',
-                      transition: 'all 0.3s ease',
-                      cursor: 'pointer',
-                      '&:hover': {
-                        border: (theme) => `2px solid ${theme.palette.secondary.main}`,
-                        boxShadow: (theme) => `0 0 15px ${theme.palette.secondary.main}30`,
-                      },
-                    }}
+                    onClick={() => method.url && window.open(method.url, '_blank')}
                   >
                     <Stack direction="row" justifyContent="space-between" alignItems="center">
                       <Box>
-                        <Typography variant="h6" color="secondary.main">
+                        <Typography variant="h6" color="primary" sx={{ fontSize: '1rem', fontWeight: 600 }}>
                           {method.label}
                         </Typography>
                         <Typography variant="body2" color="text.secondary">
@@ -189,29 +185,27 @@ const ContactSection: React.FC<ContactSectionProps> = ({ contactMethods }) => {
                         label={method.status}
                         size="small"
                         color="success"
-                        sx={{
-                          boxShadow: `0 0 8px ${(theme) => theme.palette.success.main}40`,
-                        }}
+                        sx={{ fontWeight: 500 }}
                       />
                     </Stack>
-                  </Box>
+                  </ContactMethodCard>
                 ))}
               </Stack>
               
-              <Box sx={{ mt: 4, p: 3, backgroundColor: 'rgba(0, 245, 255, 0.1)', borderRadius: '12px' }}>
-                <Typography variant="h6" color="primary" gutterBottom>
-                  Response Protocol
+              <Box sx={{ mt: 4, p: 3, backgroundColor: (theme) => `${theme.palette.primary.main}10`, borderRadius: '12px', border: (theme) => `1px solid ${theme.palette.primary.main}20` }}>
+                <Typography variant="h6" color="primary" gutterBottom sx={{ fontSize: '1rem' }}>
+                  Response Time
                 </Typography>
-                <Typography variant="body2" color="text.secondary">
-                  All incoming transmissions are processed within 24 hours. Priority messages 
-                  regarding collaboration opportunities receive immediate attention.
+                <Typography variant="body2" color="text.secondary" sx={{ lineHeight: 1.6 }}>
+                  I typically respond to all inquiries within 24 hours. For urgent matters, 
+                  feel free to reach out via email or LinkedIn.
                 </Typography>
               </Box>
             </CardContent>
-          </CommunicationInterface>
+          </ContactCard>
         </Box>
       </Stack>
-    </Box>
+    </SectionContainer>
   );
 };
 

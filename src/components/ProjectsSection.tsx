@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { 
   Box, 
   Typography, 
@@ -18,50 +18,52 @@ import CloseIcon from '@mui/icons-material/Close';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import LaunchIcon from '@mui/icons-material/Launch';
-import { ProjectsSectionProps, Project } from '../types/portfolio';
+import type { ProjectsSectionProps, Project } from '../types/portfolio';
 
-const QuestCard = styled(Card)(({ theme }) => ({
-  background: `linear-gradient(135deg, ${theme.palette.background.paper} 0%, rgba(255, 107, 53, 0.1) 100%)`,
-  border: `1px solid ${theme.palette.secondary.main}40`,
+const SectionContainer = styled(Box)(({ theme }) => ({
+  padding: theme.spacing(10, 0),
+  [theme.breakpoints.down('md')]: {
+    padding: theme.spacing(6, 0),
+  },
+}));
+
+const ProjectCard = styled(Card)(({ theme }) => ({
+  background: theme.palette.background.paper,
+  border: `1px solid ${theme.palette.divider}`,
   borderRadius: '16px',
   transition: 'all 0.3s ease',
   cursor: 'pointer',
-  position: 'relative',
-  overflow: 'hidden',
+  height: '100%',
+  display: 'flex',
+  flexDirection: 'column',
   '&:hover': {
-    border: `2px solid ${theme.palette.secondary.main}`,
-    boxShadow: `0 0 25px ${theme.palette.secondary.main}30`,
+    borderColor: theme.palette.primary.main,
+    boxShadow: `0 8px 24px ${theme.palette.primary.main}15`,
     transform: 'translateY(-8px)',
-  },
-  '&::before': {
-    content: '""',
-    position: 'absolute',
-    top: 0,
-    right: 0,
-    width: '100px',
-    height: '100px',
-    background: `radial-gradient(circle, ${theme.palette.secondary.main}20 0%, transparent 70%)`,
-    borderRadius: '50%',
-    transform: 'translate(50%, -50%)',
   },
 }));
 
 const DifficultyChip = styled(Chip)(({ theme, difficulty }: { theme: any; difficulty: string }) => {
   const colors = {
     Easy: theme.palette.success.main,
-    Medium: theme.palette.warning.main,
+    Medium: '#FFB020',
     Hard: theme.palette.error.main,
     Expert: theme.palette.primary.main,
   };
   
   return {
-    backgroundColor: `${colors[difficulty as keyof typeof colors]}20`,
+    backgroundColor: `${colors[difficulty as keyof typeof colors]}15`,
     color: colors[difficulty as keyof typeof colors],
-    border: `1px solid ${colors[difficulty as keyof typeof colors]}`,
-    fontWeight: 'bold',
-    boxShadow: `0 0 10px ${colors[difficulty as keyof typeof colors]}30`,
+    border: `1px solid ${colors[difficulty as keyof typeof colors]}30`,
+    fontWeight: 500,
+    fontSize: '0.75rem',
   };
 });
+
+const StatusChip = styled(Chip)(({ theme }) => ({
+  fontWeight: 500,
+  fontSize: '0.75rem',
+}));
 
 const ModalContainer = styled(Box)(({ theme }) => ({
   position: 'absolute',
@@ -72,11 +74,10 @@ const ModalContainer = styled(Box)(({ theme }) => ({
   maxWidth: '1200px',
   height: '90vh',
   maxHeight: '800px',
-  background: `linear-gradient(135deg, ${theme.palette.background.paper}F0 0%, rgba(0, 245, 255, 0.1) 100%)`,
-  backdropFilter: 'blur(20px)',
-  border: `2px solid ${theme.palette.primary.main}60`,
-  borderRadius: '20px',
-  boxShadow: `0 0 50px ${theme.palette.primary.main}30`,
+  background: theme.palette.background.paper,
+  border: `1px solid ${theme.palette.divider}`,
+  borderRadius: '16px',
+  boxShadow: '0 24px 48px rgba(0, 0, 0, 0.5)',
   outline: 'none',
   overflow: 'hidden',
   display: 'flex',
@@ -84,9 +85,9 @@ const ModalContainer = styled(Box)(({ theme }) => ({
 }));
 
 const ModalHeader = styled(Box)(({ theme }) => ({
-  background: `linear-gradient(90deg, ${theme.palette.primary.main}20, ${theme.palette.secondary.main}20)`,
-  padding: theme.spacing(2, 3),
-  borderBottom: `1px solid ${theme.palette.primary.main}40`,
+  background: theme.palette.background.default,
+  padding: theme.spacing(3),
+  borderBottom: `1px solid ${theme.palette.divider}`,
   display: 'flex',
   justifyContent: 'space-between',
   alignItems: 'center',
@@ -106,19 +107,17 @@ const NavigationButton = styled(IconButton)(({ theme }) => ({
   position: 'absolute',
   top: '50%',
   transform: 'translateY(-50%)',
-  background: `${theme.palette.background.paper}E0`,
-  backdropFilter: 'blur(10px)',
-  border: `2px solid ${theme.palette.primary.main}60`,
+  background: theme.palette.background.paper,
+  border: `1px solid ${theme.palette.divider}`,
   color: theme.palette.primary.main,
-  width: '60px',
-  height: '60px',
+  width: '48px',
+  height: '48px',
   zIndex: 10,
   transition: 'all 0.3s ease',
   '&:hover': {
     background: theme.palette.primary.main,
-    color: theme.palette.background.paper,
-    boxShadow: `0 0 20px ${theme.palette.primary.main}60`,
-    transform: 'translateY(-50%) scale(1.1)',
+    color: theme.palette.primary.contrastText,
+    borderColor: theme.palette.primary.main,
   },
   '&.left': {
     left: theme.spacing(2),
@@ -128,40 +127,24 @@ const NavigationButton = styled(IconButton)(({ theme }) => ({
   },
 }));
 
-const ProjectImage = styled('img')(({ theme }) => ({
+const ProjectImage = styled('img')({
   maxWidth: '100%',
   maxHeight: '100%',
   objectFit: 'contain',
   borderRadius: '8px',
-  boxShadow: `0 0 30px ${theme.palette.primary.main}20`,
-}));
+});
 
 const ModalContent = styled(Box)(({ theme }) => ({
   padding: theme.spacing(3),
-  background: `linear-gradient(135deg, ${theme.palette.background.paper}80 0%, rgba(0, 245, 255, 0.05) 100%)`,
-  backdropFilter: 'blur(10px)',
-  borderTop: `1px solid ${theme.palette.primary.main}40`,
+  background: theme.palette.background.paper,
+  borderTop: `1px solid ${theme.palette.divider}`,
   maxHeight: '200px',
   overflowY: 'auto',
 }));
 
-const GitHubButton = styled(IconButton)(({ theme }) => ({
-  background: `linear-gradient(135deg, ${theme.palette.background.paper}E0, rgba(255, 255, 255, 0.1))`,
-  border: `2px solid ${theme.palette.text.secondary}40`,
-  color: theme.palette.text.primary,
-  transition: 'all 0.3s ease',
-  '&:hover': {
-    background: theme.palette.text.primary,
-    color: theme.palette.background.paper,
-    boxShadow: `0 0 15px ${theme.palette.text.primary}40`,
-    transform: 'scale(1.1)',
-  },
-}));
-
-const ProjectsSection: React.FC<ProjectsSectionProps> = ({ projects }) => {
+const ProjectsSection = ({ projects }: ProjectsSectionProps) => {
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
-
 
   const handleOpenModal = (project: Project) => {
     setSelectedProject(project);
@@ -185,39 +168,46 @@ const ProjectsSection: React.FC<ProjectsSectionProps> = ({ projects }) => {
     }
   };
 
-  const handleGitHubClick = (url: string, e: React.MouseEvent) => {
+  const handleLinkClick = (url: string, e: React.MouseEvent) => {
     e.stopPropagation();
     window.open(url, '_blank');
   };
 
   return (
-    <Box id="projects" sx={{ py: 8 }}>
-      <Typography variant="h2" color="secondary.main" gutterBottom textAlign="center" sx={{ mb: 6 }}>
-        Quest Log
-      </Typography>
+    <SectionContainer id="projects">
+      <Box sx={{ textAlign: 'center', mb: 8 }}>
+        <Typography 
+          variant="h2" 
+          gutterBottom
+          sx={{
+            background: (theme) => `linear-gradient(135deg, ${theme.palette.primary.main}, ${theme.palette.secondary.main})`,
+            WebkitBackgroundClip: 'text',
+            WebkitTextFillColor: 'transparent',
+            backgroundClip: 'text',
+          }}
+        >
+          Featured Projects
+        </Typography>
+        <Typography variant="body1" color="text.secondary" sx={{ maxWidth: '600px', mx: 'auto', mt: 2 }}>
+          A showcase of my recent work and technical achievements
+        </Typography>
+      </Box>
       
       <Stack spacing={4}>
         {projects.map((project, index) => (
-          <QuestCard key={index}>
-            <CardContent sx={{ p: 4 }}>
+          <ProjectCard key={index} onClick={() => handleOpenModal(project)}>
+            <CardContent sx={{ p: 4, flex: 1, display: 'flex', flexDirection: 'column' }}>
               <Stack direction="row" justifyContent="space-between" alignItems="flex-start" sx={{ mb: 2 }}>
-                <Typography variant="h4" color="secondary.main" gutterBottom>
+                <Typography variant="h4" color="primary" gutterBottom>
                   {project.title}
                 </Typography>
                 <Stack direction="row" spacing={1} alignItems="center">
-                  <GitHubButton
-                    size="small"
-                    onClick={(e) => handleGitHubClick(project.githubUrl, e)}
-                    title="View on GitHub"
-                  >
-                    <GitHubIcon fontSize="small" />
-                  </GitHubButton>
                   <DifficultyChip
                     label={project.difficulty}
                     size="small"
                     difficulty={project.difficulty}
                   />
-                  <Chip
+                  <StatusChip
                     label={project.status}
                     size="small"
                     color={project.status === 'Completed' ? 'success' : 'warning'}
@@ -226,12 +216,12 @@ const ProjectsSection: React.FC<ProjectsSectionProps> = ({ projects }) => {
                 </Stack>
               </Stack>
               
-              <Typography variant="body1" color="text.secondary" sx={{ mb: 3, lineHeight: 1.7 }}>
+              <Typography variant="body1" color="text.secondary" sx={{ mb: 3, lineHeight: 1.7, flex: 1 }}>
                 {project.description}
               </Typography>
               
               <Box sx={{ mb: 3 }}>
-                <Typography variant="h6" color="primary" gutterBottom>
+                <Typography variant="h6" color="text.primary" gutterBottom sx={{ fontSize: '0.95rem', fontWeight: 600 }}>
                   Tech Stack
                 </Typography>
                 <Stack direction="row" spacing={1} flexWrap="wrap" useFlexGap>
@@ -248,43 +238,35 @@ const ProjectsSection: React.FC<ProjectsSectionProps> = ({ projects }) => {
                 </Stack>
               </Box>
               
-              <Box sx={{ mb: 3 }}>
-                <Typography variant="h6" color="success.main" gutterBottom>
-                  Rewards Earned
-                </Typography>
-                <Stack direction="row" spacing={1} flexWrap="wrap" useFlexGap>
-                  {project.rewards.map((reward, rewardIndex) => (
-                    <Chip
-                      key={rewardIndex}
-                      label={reward}
-                      size="small"
-                      color="success"
-                      sx={{ mb: 1 }}
-                    />
-                  ))}
-                </Stack>
-              </Box>
-              
-              <Stack direction="row" justifyContent="space-between" alignItems="center">
+              <Stack direction="row" justifyContent="space-between" alignItems="center" flexWrap="wrap" gap={2}>
                 <Typography variant="body2" color="text.secondary">
-                  Completed: {project.completionDate}
+                  {project.completionDate}
                 </Typography>
                 <Stack direction="row" spacing={2}>
                   <Button 
                     variant="outlined" 
                     color="primary" 
                     size="small"
-                    onClick={() => handleOpenModal(project)}
+                    startIcon={<GitHubIcon />}
+                    onClick={(e) => handleLinkClick(project.githubUrl, e)}
                   >
-                    View Details
+                    GitHub
                   </Button>
-                  <Button variant="contained" color="secondary" size="small">
-                    Live Demo
-                  </Button>
+                  {project.liveUrl && (
+                    <Button 
+                      variant="contained" 
+                      color="primary" 
+                      size="small"
+                      startIcon={<LaunchIcon />}
+                      onClick={(e) => handleLinkClick(project.liveUrl!, e)}
+                    >
+                      Live Demo
+                    </Button>
+                  )}
                 </Stack>
               </Stack>
             </CardContent>
-          </QuestCard>
+          </ProjectCard>
         ))}
       </Stack>
 
@@ -292,10 +274,12 @@ const ProjectsSection: React.FC<ProjectsSectionProps> = ({ projects }) => {
         open={!!selectedProject}
         onClose={handleCloseModal}
         closeAfterTransition
-        BackdropComponent={Backdrop}
-        BackdropProps={{
-          timeout: 500,
-          sx: { backdropFilter: 'blur(10px)' },
+        slots={{ backdrop: Backdrop }}
+        slotProps={{
+          backdrop: {
+            timeout: 500,
+            sx: { backdropFilter: 'blur(8px)' },
+          },
         }}
       >
         <Fade in={!!selectedProject}>
@@ -307,20 +291,14 @@ const ProjectsSection: React.FC<ProjectsSectionProps> = ({ projects }) => {
                     <Typography variant="h4" color="primary">
                       {selectedProject.title}
                     </Typography>
-                    <GitHubButton
-                      size="small"
-                      onClick={(e) => handleGitHubClick(selectedProject.githubUrl, e)}
-                    >
-                      <GitHubIcon />
-                    </GitHubButton>
                   </Stack>
                   <IconButton
                     onClick={handleCloseModal}
                     sx={{
-                      color: 'primary.main',
+                      color: 'text.primary',
                       '&:hover': {
                         background: 'primary.main',
-                        color: 'background.paper',
+                        color: 'primary.contrastText',
                       },
                     }}
                   >
@@ -341,7 +319,6 @@ const ProjectsSection: React.FC<ProjectsSectionProps> = ({ projects }) => {
                   <ProjectImage
                     src={selectedProject.images[currentImageIndex].url}
                     alt={selectedProject.images[currentImageIndex].alt}
-                    style={{ width: 'auto', height: 'auto', maxWidth: '90%', maxHeight: '90%' }}
                   />
                   
                   {selectedProject.images.length > 1 && currentImageIndex < selectedProject.images.length - 1 && (
@@ -389,23 +366,23 @@ const ProjectsSection: React.FC<ProjectsSectionProps> = ({ projects }) => {
                   
                   <Stack direction="row" spacing={3} flexWrap="wrap" useFlexGap>
                     <Box>
-                      <Typography variant="h6" color="primary" gutterBottom>
-                        Tech Stack
+                      <Typography variant="h6" color="primary" gutterBottom sx={{ fontSize: '1rem' }}>
+                        Technologies
                       </Typography>
                       <Stack direction="row" spacing={1} flexWrap="wrap" useFlexGap>
                         {selectedProject.techStack.map((tech, index) => (
-                          <Chip key={index} label={tech} size="small" color="primary" />
+                          <Chip key={index} label={tech} size="small" color="primary" variant="outlined" />
                         ))}
                       </Stack>
                     </Box>
                     
                     <Box>
-                      <Typography variant="h6" color="success.main" gutterBottom>
-                        Achievements
+                      <Typography variant="h6" color="success.main" gutterBottom sx={{ fontSize: '1rem' }}>
+                        Key Features
                       </Typography>
                       <Stack direction="row" spacing={1} flexWrap="wrap" useFlexGap>
                         {selectedProject.rewards.map((reward, index) => (
-                          <Chip key={index} label={reward} size="small" color="success" />
+                          <Chip key={index} label={reward} size="small" color="success" variant="outlined" />
                         ))}
                       </Stack>
                     </Box>
@@ -416,7 +393,7 @@ const ProjectsSection: React.FC<ProjectsSectionProps> = ({ projects }) => {
           </ModalContainer>
         </Fade>
       </Modal>
-    </Box>
+    </SectionContainer>
   );
 };
 
