@@ -4,141 +4,160 @@ export const portfolioData: PortfolioData = {
   personal: {
     name: 'Gary Brenden',
     title: 'Junior Software Engineer',
-    level: 'Level 99 Developer', // Remove later 
-    role: 'Full Stack Wizard',
-    avatar: '',
     bio: {
-      short: 'bio short',
-      origin: '',
-      current: 'bio',
+      short: "I'm a passionate software engineer specializing in full-stack development with expertise in Unity, AWS, and modern web technologies. I thrive in collaborative environments and am committed to delivering high-quality, scalable solutions.",
+      origin: 'Started my software development journey in 2018, focusing on game development and cloud technologies',
+      current: 'Currently working as a Junior Software Engineer, building scalable applications and contributing to innovative projects',
     },
   },
 
-  coreStats: [
-    { label: 'Backend', value: 85 },
-    { label: '', value: 0 },
-  ],
-
-  skillCategories: [
-    // {
-    //   title: 'Frontend Arsenal',
-    //   skills: [
-    //     { name: 'React/Next.js', level: 95, experience: '5+ years' },
-    //     { name: 'TypeScript', level: 90, experience: '4+ years' },
-    //     { name: 'Vue.js', level: 85, experience: '3+ years' },
-    //     { name: 'CSS/SCSS', level: 90, experience: '6+ years' },
-    //   ],
-    // },
+  workExperience: [
     {
-      title: 'Backend Mastery',
-      skills: [
-        { name: 'MongoDB', level: 75, experience: '2+ years' },
+      id: 'gravity-well',
+      company: 'Gravity Well',
+      position: 'Engineering Director',
+      duration: '2022 - Present',
+      location: 'Remote',
+      responsibilities: 'Leading engineering teams in developing scalable game systems and backend infrastructure. Architecting cloud-based solutions using AWS and PlayFab. Implementing CI/CD pipelines and maintaining code quality standards.',
+      projects: [
+        {
+          id: 'multiplayer-system',
+          title: 'Multiplayer Game System',
+          description: 'Architected and implemented a scalable multiplayer system supporting 10,000+ concurrent players.',
+          longDescription: 'Designed and developed a robust multiplayer infrastructure using Unity, PlayFab, and AWS. Implemented real-time synchronization, matchmaking algorithms, and anti-cheat systems. Optimized network performance reducing latency by 40%.',
+          techStack: ['Unity', 'C#', 'PlayFab', 'AWS Lambda', 'DynamoDB'],
+          completionDate: '2023',
+          highlights: ['10,000+ concurrent players', '40% latency reduction', 'Real-time synchronization'],
+          githubUrl: '',
+          images: [
+            {
+              url: 'https://images.unsplash.com/photo-1511512578047-dfb367046420?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTAwNDR8MHwxfHNlYXJjaHwxfHxnYW1lJTIwZGV2ZWxvcG1lbnR8ZW58MHwwfHx8MTc1ODYwMDY0NHww&ixlib=rb-4.1.0&q=85',
+              alt: 'Multiplayer game development - Florian Olivo on Unsplash',
+              caption: 'Game Development Environment',
+            },
+          ],
+        },
       ],
     },
-    // {
-    //   title: 'DevOps & Tools',
-    //   skills: [
-    //     { name: 'Docker', level: 80, experience: '3+ years' },
-    //     { name: 'AWS', level: 75, experience: '2+ years' },
-    //     { name: 'Git', level: 95, experience: '6+ years' },
-    //     { name: 'CI/CD', level: 70, experience: '2+ years' },
-    //   ],
-    // },
-  ],
-
-  timeline: [
-    // {
-    //   year: '2018',
-    //   title: 'The Beginning',
-    //   description: 'Started the coding journey with HTML, CSS, and JavaScript. First steps into the digital realm.',
-    // },
+    {
+      id: 'chessplus',
+      company: 'Chessplus',
+      position: 'Digital Director / Part Owner',
+      duration: '2021 - Present',
+      location: 'Remote',
+      responsibilities: 'Overseeing digital strategy and technical implementation for chess gaming platform. Managing full-stack development team. Integrating payment systems and user analytics.',
+      projects: [
+        {
+          id: 'chess-platform',
+          title: 'Chess Gaming Platform',
+          description: 'Built a comprehensive online chess platform with real-time gameplay, tournaments, and social features.',
+          longDescription: 'Developed a full-stack chess platform using React, Node.js, and WebSockets for real-time gameplay. Implemented ELO rating system, tournament management, and social features. Integrated Stripe for payments and AWS for hosting.',
+          techStack: ['React', 'TypeScript', 'Node.js', 'WebSocket', 'AWS', 'Stripe'],
+          completionDate: '2022',
+          highlights: ['Real-time gameplay', 'Tournament system', 'Payment integration'],
+          liveUrl: 'https://chessplus.com',
+          images: [
+            {
+              url: 'https://images.unsplash.com/photo-1586165368502-1bad197a6461?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTAwNDR8MHwxfHNlYXJjaHwxfHxjaGVzcyUyMGdhbWV8ZW58MHwwfHx8MTc1ODYwMDY0NHww&ixlib=rb-4.1.0&q=85',
+              alt: 'Chess game platform - Jeshoots.com on Unsplash',
+              caption: 'Chess Platform Interface',
+            },
+          ],
+        },
+      ],
+    },
   ],
 
   projects: [
-    // {
-    //   id: 'ecommerce-platform',
-    //   title: 'E-Commerce Platform Quest',
-    //   description: 'Built a full-stack e-commerce platform with React, Node.js, and PostgreSQL. Features include user authentication, payment processing, and admin dashboard.',
-    //   longDescription: 'A comprehensive e-commerce solution featuring modern UI/UX design, secure payment processing with Stripe integration, real-time inventory management, advanced search and filtering capabilities, responsive design for all devices, and a powerful admin dashboard for managing products, orders, and analytics.',
-    //   difficulty: 'Expert',
-    //   status: 'Completed',
-    //   techStack: ['React', 'Node.js', 'PostgreSQL', 'Stripe', 'AWS'],
-    //   completionDate: '2024',
-    //   rewards: ['Full Stack Mastery', 'Payment Integration', 'Cloud Deployment'],
-    //   githubUrl: 'https://github.com/johndoe/ecommerce-platform',
-    //   liveUrl: 'https://ecommerce-demo.johndoe.dev',
-    //   images: [
-    //     {
-    //       url: 'https://images.unsplash.com/photo-1642052503083-bc49dd433478?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTAwNDR8MHwxfHNlYXJjaHwxfHx3ZWJzaXRlJTIwZGFzaGJvYXJkJTIwZWNvbW1lcmNlfGVufDB8MHx8fDE3NTg2MDA2NDR8MA&ixlib=rb-4.1.0&q=85',
-    //       alt: 'E-commerce platform dashboard - PiggyBank on Unsplash',
-    //       caption: 'Admin Dashboard Overview',
-    //     },
-    //     {
-    //       url: 'https://images.unsplash.com/photo-1642132652860-471b4228023e?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTAwNDR8MHwxfHNlYXJjaHwyfHx3ZWJzaXRlJTIwZGFzaGJvYXJkJTIwZWNvbW1lcmNlfGVufDB8MHx8fDE3NTg2MDA2NDR8MA&ixlib=rb-4.1.0&q=85',
-    //       alt: 'E-commerce website interface - Team Nocoloco on Unsplash',
-    //       caption: 'Product Catalog Interface',
-    //     },
-    //     {
-    //       url: 'https://images.unsplash.com/photo-1642054220942-d3c7dd1466cb?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTAwNDR8MHwxfHNlYXJjaHw2fHx3ZWJzaXRlJTIwZGFzaGJvYXJkJTIwZWNvbW1lcmNlfGVufDB8MHx8fDE3NTg2MDA2NDR8MA&ixlib=rb-4.1.0&q=85',
-    //       alt: 'E-commerce checkout process - PiggyBank on Unsplash',
-    //       caption: 'Checkout & Payment Flow',
-    //     },
-    //   ],
-    // },
-    
+    {
+      id: 'portfolio-website',
+      title: 'Personal Portfolio Website',
+      description: 'Designed and developed a modern, responsive portfolio website using React and Material-UI.',
+      longDescription: 'Created a professional portfolio website showcasing projects and skills. Implemented smooth scrolling navigation, responsive design, and dynamic content management. Deployed on Vercel with CI/CD integration.',
+      techStack: ['React', 'TypeScript', 'Material-UI', 'Vite', 'Vercel'],
+      completionDate: '2024',
+      highlights: ['Responsive design', 'Smooth animations', 'SEO optimized'],
+      githubUrl: 'https://github.com/coelor/portfolio',
+      images: [
+        {
+          url: 'https://images.unsplash.com/photo-1467232004584-a241de8bcf5d?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTAwNDR8MHwxfHNlYXJjaHwxfHx3ZWIlMjBkZXZlbG9wbWVudHxlbnwwfDB8fHwxNzU4NjAwNjQ0fDA&ixlib=rb-4.1.0&q=85',
+          alt: 'Web development workspace - Eftakher Alam on Unsplash',
+          caption: 'Portfolio Development',
+        },
+      ],
+    },
+    {
+      id: 'task-manager',
+      title: 'Task Management Application',
+      description: 'Built a full-stack task management app with real-time collaboration features.',
+      longDescription: 'Developed a comprehensive task management application with drag-and-drop interface, real-time updates, and team collaboration features. Implemented authentication, role-based access control, and data persistence.',
+      techStack: ['React', 'Node.js', 'MongoDB', 'Socket.io', 'Express'],
+      completionDate: '2023',
+      highlights: ['Real-time collaboration', 'Drag-and-drop interface', 'Role-based access'],
+      githubUrl: 'https://github.com/coelor/task-manager',
+      images: [
+        {
+          url: 'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTAwNDR8MHwxfHNlYXJjaHwxfHx0YXNrJTIwbWFuYWdlbWVudHxlbnwwfDB8fHwxNzU4NjAwNjQ0fDA&ixlib=rb-4.1.0&q=85',
+          alt: 'Task management workspace - Startaê Team on Unsplash',
+          caption: 'Task Management Interface',
+        },
+      ],
+    },
   ],
 
-  blogPosts: [
-    // {
-    //   id: 'scalable-react-2024',
-    //   title: 'Mission Log: Building Scalable React Applications',
-    //   date: '2024-01-15',
-    //   category: 'Frontend',
-    //   excerpt: 'Discovered advanced patterns for building scalable React applications. Explored component composition, custom hooks, and state management strategies that have proven effective in large-scale projects.',
-    //   readTime: '8 min read',
-    //   tags: ['React', 'Architecture', 'Best Practices'],
-    //   slug: 'building-scalable-react-applications',
-    //   featured: true,
-    // },
-    // {
-    //   id: 'typescript-mastery-2024',
-    //   title: 'Quest Report: Mastering TypeScript in 2024',
-    //   date: '2024-01-08',
-    //   category: 'Development',
-    //   excerpt: 'Deep dive into advanced TypeScript features and how they can improve code quality and developer experience. Covered utility types, conditional types, and template literal types.',
-    //   readTime: '12 min read',
-    //   tags: ['TypeScript', 'JavaScript', 'Types'],
-    //   slug: 'mastering-typescript-2024',
-    //   featured: true,
-    // },
-    // {
-    //   id: 'modern-css-techniques',
-    //   title: 'Field Notes: Modern CSS Techniques',
-    //   date: '2024-01-01',
-    //   category: 'Design',
-    //   excerpt: 'Explored the latest CSS features including container queries, cascade layers, and modern layout techniques. How these tools are changing the way we approach responsive design.',
-    //   readTime: '6 min read',
-    //   tags: ['CSS', 'Design', 'Responsive'],
-    //   slug: 'modern-css-techniques',
-    // },
-    // {
-    //   id: 'nextjs-14-journey',
-    //   title: 'Adventure Log: My Journey with Next.js 14',
-    //   date: '2023-12-20',
-    //   category: 'Framework',
-    //   excerpt: 'Comprehensive guide to Next.js 14 features including the new App Router, Server Components, and improved performance optimizations. Real-world examples and migration tips.',
-    //   readTime: '15 min read',
-    //   tags: ['Next.js', 'React', 'Performance'],
-    //   slug: 'nextjs-14-journey',
-    // },
+  education: [
+    {
+      id: 'university',
+      degree: 'Bachelor of Science in Computer Science',
+      school: 'University of Technology',
+      year: '2018 - 2022',
+      location: 'Sydney, Australia',
+      description: 'Focused on software engineering, algorithms, and game development. Graduated with honors.',
+    },
+  ],
+
+  certifications: [
+    {
+      id: 'unity-cert',
+      name: 'Unity Certified Developer',
+      issuer: 'Unity Technologies',
+      year: '2022',
+    },
+    {
+      id: 'aws-cert',
+      name: 'AWS Certified Developer - Associate',
+      issuer: 'Amazon Web Services',
+      year: '2022',
+    },
+    {
+      id: 'scrum-cert',
+      name: 'Certified Scrum Master (CSM)',
+      issuer: 'Scrum Alliance',
+      year: '2023',
+    },
+  ],
+
+  skillTags: [
+    { name: 'Unity', category: 'Game Development' },
+    { name: 'C#', category: 'Programming' },
+    { name: '.NET', category: 'Framework' },
+    { name: 'React', category: 'Frontend' },
+    { name: 'TypeScript', category: 'Programming' },
+    { name: 'AWS', category: 'Cloud' },
+    { name: 'PlayFab', category: 'Backend' },
+    { name: 'Git', category: 'Tools' },
+    { name: 'Agile Scrum', category: 'Methodology' },
+    { name: 'Node.js', category: 'Backend' },
+    { name: 'MongoDB', category: 'Database' },
+    { name: 'REST API', category: 'Backend' },
   ],
 
   contactMethods: [
     {
       label: 'Email',
-      value: '',
+      value: 'gary.brenden@example.com',
       status: 'Online',
-      url: 'mailto:',
+      url: 'mailto:gary.brenden@example.com',
       icon: 'email',
     },
     {
@@ -155,20 +174,16 @@ export const portfolioData: PortfolioData = {
       url: 'https://github.com/coelor',
       icon: 'github',
     },
-    // {
-    //   label: 'Discord',
-    //   value: 'JohnDoe#1234',
-    //   status: 'Available',
-    //   icon: 'discord',
-    // },
   ],
 
   navigation: [
     { id: 'hero', label: 'Home', icon: 'home', color: 'primary' },
-    { id: 'projects', label: 'Projects', icon: 'work', color: 'secondary' },
-    { id: 'skills', label: 'Skills', icon: 'trophy', color: 'success' },
     { id: 'about', label: 'About', icon: 'person', color: 'primary' },
-    { id: 'blog', label: 'Blog', icon: 'book', color: 'success' },
+    { id: 'experience', label: 'Experience', icon: 'work', color: 'primary' },
+    { id: 'projects', label: 'Projects', icon: 'build', color: 'primary' },
+    { id: 'education', label: 'Education', icon: 'school', color: 'primary' },
     { id: 'contact', label: 'Contact', icon: 'mail', color: 'primary' },
   ],
+
+  resumeUrl: '/resume.pdf',
 };

@@ -1,9 +1,12 @@
-import { Box, Typography, Stack } from '@mui/material';
+import { Box, Typography, Stack, Container, Button } from '@mui/material';
 import { styled } from '@mui/material/styles';
+import DescriptionIcon from '@mui/icons-material/Description';
 import type { AboutSectionProps } from '../types/portfolio';
+import { portfolioData } from '../data/portfolioData';
 
 const SectionContainer = styled(Box)(({ theme }) => ({
   padding: theme.spacing(10, 0),
+  backgroundColor: theme.palette.background.default,
   [theme.breakpoints.down('md')]: {
     padding: theme.spacing(6, 0),
   },
@@ -103,65 +106,75 @@ const TimelineCard = styled(Box)(({ theme }) => ({
   },
 }));
 
-const AboutSection = ({ personal, timeline }: AboutSectionProps) => {
+const AboutSection = ({ personal }: AboutSectionProps) => {
   return (
     <SectionContainer id="about">
-      <Box sx={{ textAlign: 'center', mb: 8 }}>
-        <Typography 
-          variant="h2" 
-          gutterBottom
-          sx={{
-            background: (theme) => `linear-gradient(135deg, ${theme.palette.primary.main}, ${theme.palette.secondary.main})`,
-            WebkitBackgroundClip: 'text',
-            WebkitTextFillColor: 'transparent',
-            backgroundClip: 'text',
-          }}
-        >
-          About Me
-        </Typography>
-        <Typography variant="body1" color="text.secondary" sx={{ maxWidth: '600px', mx: 'auto', mt: 2 }}>
-          My journey, experience, and what drives me as a developer
-        </Typography>
-      </Box>
-      
-      <BioCard>
-        <Typography variant="h4" color="primary" gutterBottom>
-          Background
-        </Typography>
-        <Typography variant="body1" color="text.secondary" sx={{ lineHeight: 1.8, mb: 3 }}>
-          {personal.bio.origin}
-        </Typography>
-        <Typography variant="body1" color="text.secondary" sx={{ lineHeight: 1.8 }}>
-          {personal.bio.current}
-        </Typography>
-      </BioCard>
+      <Container maxWidth="lg">
+        <Box sx={{ textAlign: 'center', mb: 8 }}>
+          <Typography
+            variant="h2"
+            gutterBottom
+            sx={{
+              color: 'text.primary',
+              fontWeight: 700,
+            }}
+          >
+            About Me
+          </Typography>
+          <Typography variant="body1" color="text.secondary" sx={{ maxWidth: '600px', mx: 'auto', mt: 2, fontSize: '1.1rem' }}>
+            {personal.bio.short}
+          </Typography>
+        </Box>
 
-      <Box>
-        <Typography variant="h4" color="primary" gutterBottom sx={{ mb: 4, textAlign: 'center' }}>
-          Career Timeline
-        </Typography>
-        
-        <TimelineContainer>
-          {timeline.map((event, index) => (
-            <TimelineItem key={index}>
-              <TimelineDot />
-              <TimelineContent>
-                <TimelineCard>
-                  <Typography variant="h6" color="secondary.main" gutterBottom>
-                    {event.year}
-                  </Typography>
-                  <Typography variant="h5" gutterBottom sx={{ fontSize: '1.1rem', fontWeight: 600 }}>
-                    {event.title}
-                  </Typography>
-                  <Typography variant="body2" color="text.secondary" sx={{ lineHeight: 1.6 }}>
-                    {event.description}
-                  </Typography>
-                </TimelineCard>
-              </TimelineContent>
-            </TimelineItem>
-          ))}
-        </TimelineContainer>
-      </Box>
+        {portfolioData.resumeUrl && (
+          <Box sx={{ textAlign: 'center', mb: 6 }}>
+            <Button
+              variant="contained"
+              size="large"
+              component="a"
+              href={portfolioData.resumeUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              startIcon={<DescriptionIcon />}
+              sx={{
+                px: 5,
+                py: 2,
+                fontSize: '1.1rem',
+                fontWeight: 600,
+                borderRadius: '8px',
+                boxShadow: '0 4px 14px rgba(37, 99, 235, 0.3)',
+                '&:hover': {
+                  transform: 'translateY(-2px)',
+                  boxShadow: '0 6px 20px rgba(37, 99, 235, 0.4)',
+                },
+                transition: 'all 0.3s ease',
+              }}
+            >
+              Download Resume
+            </Button>
+          </Box>
+        )}
+
+        <Stack spacing={4} sx={{ maxWidth: '800px', mx: 'auto' }}>
+          <BioCard>
+            <Typography variant="h5" color="primary" gutterBottom sx={{ fontWeight: 600 }}>
+              Background
+            </Typography>
+            <Typography variant="body1" color="text.secondary" sx={{ lineHeight: 1.8 }}>
+              {personal.bio.origin}
+            </Typography>
+          </BioCard>
+
+          <BioCard>
+            <Typography variant="h5" color="primary" gutterBottom sx={{ fontWeight: 600 }}>
+              Current Focus
+            </Typography>
+            <Typography variant="body1" color="text.secondary" sx={{ lineHeight: 1.8 }}>
+              {personal.bio.current}
+            </Typography>
+          </BioCard>
+        </Stack>
+      </Container>
     </SectionContainer>
   );
 };
