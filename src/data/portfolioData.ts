@@ -67,7 +67,7 @@ export const portfolioData: PortfolioData = {
       techStack: ['C#', '.NET', 'React', 'PlayFab API'],
       completionDate: '2024',
       highlights: ['Real-time analytics', 'PlayFab integration', 'Data visualization'],
-      githubUrl: '',
+      githubUrl: 'https://github.com/Coelor/playfab-analysis-tool',
       images: [
         {
           url: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTAwNDR8MHwxfHNlYXJjaHwxfHxhbmFseXRpY3N8ZW58MHwwfHx8MTc1ODYwMDY0NHww&ixlib=rb-4.1.0&q=85',

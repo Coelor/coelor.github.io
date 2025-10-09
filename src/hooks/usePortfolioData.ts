@@ -25,13 +25,18 @@ export const usePortfolioData = () => {
     // Calculate from the earliest work experience
     if (data.workExperience.length === 0) return 0;
     
-    const startYear = Math.min(
-      ...data.workExperience.map(exp => {
-        const match = exp.duration.match(/\d{4}/);
-        return match ? parseInt(match[0]) : new Date().getFullYear();
+    const years = data.workExperience
+      .map(exp => {
+        // Split duration by '–' and extract year from the first part
+        const startPart = exp.duration.split('–')[0].trim();
+        const yearMatch = startPart.match(/\b\d{4}\b/);
+        return yearMatch ? parseInt(yearMatch[0]) : undefined;
       })
-    );
-    
+      .filter((year): year is number => year !== undefined);
+
+    if (years.length === 0) return 0;
+
+    const startYear = Math.min(...years);
     const currentYear = new Date().getFullYear();
     return currentYear - startYear;
   };
