@@ -1,16 +1,17 @@
 import { useState } from 'react';
-import { 
-  Box, 
-  Typography, 
-  Stack, 
-  Chip, 
-  Button, 
-  Card, 
-  CardContent, 
-  Modal, 
-  IconButton, 
+import {
+  Box,
+  Typography,
+  Stack,
+  Chip,
+  Button,
+  Card,
+  CardContent,
+  Container,
+  Modal,
+  IconButton,
   Backdrop,
-  Fade 
+  Fade,
 } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import GitHubIcon from '@mui/icons-material/GitHub';
@@ -18,29 +19,42 @@ import CloseIcon from '@mui/icons-material/Close';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import LaunchIcon from '@mui/icons-material/Launch';
-import type { ProjectsSectionProps, Project } from '../types/portfolio';
+import BusinessIcon from '@mui/icons-material/Business';
+import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
+import LocationOnIcon from '@mui/icons-material/LocationOn';
+import type { WorkExperienceSectionProps, Project } from '../types/portfolio';
 
 const SectionContainer = styled(Box)(({ theme }) => ({
   padding: theme.spacing(10, 0),
-  backgroundColor: theme.palette.background.default,
   [theme.breakpoints.down('md')]: {
     padding: theme.spacing(6, 0),
   },
 }));
 
-const ProjectCard = styled(Card)(({ theme }) => ({
+const ExperienceCard = styled(Card)(({ theme }) => ({
   background: theme.palette.background.paper,
   border: `1px solid ${theme.palette.divider}`,
   borderRadius: '12px',
+  marginBottom: theme.spacing(4),
+  boxShadow: '0 1px 3px 0 rgba(0, 0, 0, 0.1)',
+  transition: 'all 0.3s ease',
+  '&:hover': {
+    boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
+  },
+}));
+
+const ProjectCard = styled(Card)(({ theme }) => ({
+  background: theme.palette.grey[50],
+  border: `1px solid ${theme.palette.divider}`,
+  borderRadius: '8px',
   transition: 'all 0.3s ease',
   cursor: 'pointer',
   height: '100%',
   display: 'flex',
   flexDirection: 'column',
-  boxShadow: '0 1px 3px 0 rgba(0, 0, 0, 0.1)',
   '&:hover': {
     borderColor: theme.palette.primary.main,
-    boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
+    boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)',
     transform: 'translateY(-4px)',
   },
 }));
@@ -65,7 +79,7 @@ const ModalContainer = styled(Box)(({ theme }) => ({
 }));
 
 const ModalHeader = styled(Box)(({ theme }) => ({
-  background: theme.palette.background.default,
+  background: theme.palette.background.paper,
   padding: theme.spacing(3),
   borderBottom: `1px solid ${theme.palette.divider}`,
   display: 'flex',
@@ -122,7 +136,7 @@ const ModalContent = styled(Box)(({ theme }) => ({
   overflowY: 'auto',
 }));
 
-const ProjectsSection = ({ projects }: ProjectsSectionProps) => {
+const WorkExperienceSection = ({ workExperience }: WorkExperienceSectionProps) => {
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
@@ -154,8 +168,8 @@ const ProjectsSection = ({ projects }: ProjectsSectionProps) => {
   };
 
   return (
-    <SectionContainer id="projects">
-      <Box sx={{ maxWidth: '1200px', mx: 'auto', px: 3 }}>
+    <SectionContainer id="experience">
+      <Container maxWidth="lg">
         <Box sx={{ textAlign: 'center', mb: 8 }}>
           <Typography
             variant="h2"
@@ -165,77 +179,123 @@ const ProjectsSection = ({ projects }: ProjectsSectionProps) => {
               fontWeight: 700,
             }}
           >
-            Personal Projects
+            Professional Experience
           </Typography>
           <Typography variant="body1" color="text.secondary" sx={{ maxWidth: '600px', mx: 'auto', mt: 2 }}>
-            Side projects and experiments showcasing creativity and technical skills
+            My work history and key projects that showcase my technical expertise
           </Typography>
         </Box>
-      
-      <Stack spacing={4}>
-        {projects.map((project) => (
-          <ProjectCard key={project.id} onClick={() => handleOpenModal(project)}>
-            <CardContent sx={{ p: 4, flex: 1, display: 'flex', flexDirection: 'column' }}>
-              <Typography variant="h5" color="primary" gutterBottom sx={{ fontWeight: 600, mb: 2 }}>
-                {project.title}
-              </Typography>
-              
-              <Typography variant="body1" color="text.secondary" sx={{ mb: 3, lineHeight: 1.7, flex: 1 }}>
-                {project.description}
-              </Typography>
-              
-              <Box sx={{ mb: 3 }}>
-                <Typography variant="h6" color="text.primary" gutterBottom sx={{ fontSize: '0.95rem', fontWeight: 600 }}>
-                  Tech Stack
-                </Typography>
-                <Stack direction="row" spacing={1} flexWrap="wrap" useFlexGap>
-                  {project.techStack.map((tech, techIndex) => (
-                    <Chip
-                      key={techIndex}
-                      label={tech}
-                      size="small"
-                      variant="outlined"
-                      color="primary"
-                      sx={{ mb: 1 }}
-                    />
-                  ))}
-                </Stack>
-              </Box>
-              
-              <Stack direction="row" justifyContent="space-between" alignItems="center" flexWrap="wrap" gap={2}>
-                <Typography variant="body2" color="text.secondary">
-                  {project.completionDate}
-                </Typography>
-                <Stack direction="row" spacing={2}>
-                  {project.githubUrl && (
-                    <Button 
-                      variant="outlined" 
-                      color="primary" 
-                      size="small"
-                      startIcon={<GitHubIcon />}
-                      onClick={(e) => handleLinkClick(project.githubUrl, e)}
-                    >
-                      GitHub
-                    </Button>
-                  )}
-                  {project.liveUrl && (
-                    <Button 
-                      variant="contained" 
-                      color="primary" 
-                      size="small"
-                      startIcon={<LaunchIcon />}
-                      onClick={(e) => handleLinkClick(project.liveUrl!, e)}
-                    >
-                      Live Demo
-                    </Button>
-                  )}
-                </Stack>
+
+        <Stack spacing={4}>
+        {workExperience.map((experience) => (
+          <ExperienceCard key={experience.id}>
+            <CardContent sx={{ p: 4 }}>
+              <Stack direction={{ xs: 'column', md: 'row' }} justifyContent="space-between" alignItems={{ xs: 'flex-start', md: 'center' }} spacing={2} sx={{ mb: 3 }}>
+                <Box>
+                  <Typography variant="h4" color="primary" gutterBottom sx={{ fontWeight: 600 }}>
+                    {experience.position}
+                  </Typography>
+                  <Stack direction="row" spacing={2} alignItems="center" flexWrap="wrap" useFlexGap>
+                    <Stack direction="row" spacing={1} alignItems="center">
+                      <BusinessIcon sx={{ fontSize: '1.2rem', color: 'text.secondary' }} />
+                      <Typography variant="h6" color="text.secondary" sx={{ fontSize: '1rem' }}>
+                        {experience.company}
+                      </Typography>
+                    </Stack>
+                    <Stack direction="row" spacing={1} alignItems="center">
+                      <CalendarTodayIcon sx={{ fontSize: '1rem', color: 'text.secondary' }} />
+                      <Typography variant="body2" color="text.secondary">
+                        {experience.duration}
+                      </Typography>
+                    </Stack>
+                    {experience.location && (
+                      <Stack direction="row" spacing={1} alignItems="center">
+                        <LocationOnIcon sx={{ fontSize: '1rem', color: 'text.secondary' }} />
+                        <Typography variant="body2" color="text.secondary">
+                          {experience.location}
+                        </Typography>
+                      </Stack>
+                    )}
+                  </Stack>
+                </Box>
               </Stack>
+
+              <Typography variant="body1" color="text.secondary" sx={{ mb: 4, lineHeight: 1.7 }}>
+                {experience.responsibilities}
+              </Typography>
+
+              {experience.projects.length > 0 && (
+                <Box>
+                  <Typography variant="h6" color="text.primary" gutterBottom sx={{ mb: 2, fontWeight: 600 }}>
+                    Key Projects
+                  </Typography>
+                  <Stack spacing={3}>
+                    {experience.projects.map((project) => (
+                      <ProjectCard key={project.id} onClick={() => handleOpenModal(project)}>
+                        <CardContent sx={{ p: 3, flex: 1, display: 'flex', flexDirection: 'column' }}>
+                          <Typography variant="h6" color="primary" gutterBottom sx={{ fontWeight: 600 }}>
+                            {project.title}
+                          </Typography>
+
+                          <Typography variant="body2" color="text.secondary" sx={{ mb: 2, lineHeight: 1.6, flex: 1 }}>
+                            {project.description}
+                          </Typography>
+
+                          <Box sx={{ mb: 2 }}>
+                            <Stack direction="row" spacing={1} flexWrap="wrap" useFlexGap>
+                              {project.techStack.map((tech, techIndex) => (
+                                <Chip
+                                  key={techIndex}
+                                  label={tech}
+                                  size="small"
+                                  variant="outlined"
+                                  color="primary"
+                                  sx={{ mb: 1 }}
+                                />
+                              ))}
+                            </Stack>
+                          </Box>
+
+                          <Stack direction="row" justifyContent="space-between" alignItems="center" flexWrap="wrap" gap={2}>
+                            <Typography variant="body2" color="text.secondary">
+                              {project.completionDate}
+                            </Typography>
+                            <Stack direction="row" spacing={2}>
+                              {project.githubUrl && (
+                                <Button
+                                  variant="outlined"
+                                  color="primary"
+                                  size="small"
+                                  startIcon={<GitHubIcon />}
+                                  onClick={(e) => handleLinkClick(project.githubUrl!, e)}
+                                >
+                                  GitHub
+                                </Button>
+                              )}
+                              {project.liveUrl && (
+                                <Button
+                                  variant="contained"
+                                  color="primary"
+                                  size="small"
+                                  startIcon={<LaunchIcon />}
+                                  onClick={(e) => handleLinkClick(project.liveUrl!, e)}
+                                >
+                                  Live Demo
+                                </Button>
+                              )}
+                            </Stack>
+                          </Stack>
+                        </CardContent>
+                      </ProjectCard>
+                    ))}
+                  </Stack>
+                </Box>
+              )}
             </CardContent>
-          </ProjectCard>
-        ))}
-        </Stack>
-      </Box>
+          </ExperienceCard>
+                        ))}
+                        </Stack>
+                      </Container>
 
       <Modal
         open={!!selectedProject}
@@ -254,11 +314,9 @@ const ProjectsSection = ({ projects }: ProjectsSectionProps) => {
             {selectedProject && (
               <>
                 <ModalHeader>
-                  <Stack direction="row" spacing={2} alignItems="center">
-                    <Typography variant="h4" color="primary">
-                      {selectedProject.title}
-                    </Typography>
-                  </Stack>
+                  <Typography variant="h5" color="primary" sx={{ fontWeight: 600 }}>
+                    {selectedProject.title}
+                  </Typography>
                   <IconButton
                     onClick={handleCloseModal}
                     sx={{
@@ -275,24 +333,18 @@ const ProjectsSection = ({ projects }: ProjectsSectionProps) => {
 
                 <ImageContainer>
                   {selectedProject.images.length > 1 && currentImageIndex > 0 && (
-                    <NavigationButton
-                      className="left"
-                      onClick={handlePrevImage}
-                    >
+                    <NavigationButton className="left" onClick={handlePrevImage}>
                       <ChevronLeftIcon />
                     </NavigationButton>
                   )}
-                  
+
                   <ProjectImage
                     src={selectedProject.images[currentImageIndex].url}
                     alt={selectedProject.images[currentImageIndex].alt}
                   />
-                  
+
                   {selectedProject.images.length > 1 && currentImageIndex < selectedProject.images.length - 1 && (
-                    <NavigationButton
-                      className="right"
-                      onClick={handleNextImage}
-                    >
+                    <NavigationButton className="right" onClick={handleNextImage}>
                       <ChevronRightIcon />
                     </NavigationButton>
                   )}
@@ -315,7 +367,7 @@ const ProjectsSection = ({ projects }: ProjectsSectionProps) => {
                             width: 8,
                             height: 8,
                             borderRadius: '50%',
-                            background: index === currentImageIndex ? 'primary.main' : 'rgba(255, 255, 255, 0.3)',
+                            background: index === currentImageIndex ? 'primary.main' : 'rgba(0, 0, 0, 0.3)',
                             cursor: 'pointer',
                             transition: 'all 0.3s ease',
                           }}
@@ -330,10 +382,10 @@ const ProjectsSection = ({ projects }: ProjectsSectionProps) => {
                   <Typography variant="body1" color="text.secondary" sx={{ mb: 2, lineHeight: 1.7 }}>
                     {selectedProject.longDescription}
                   </Typography>
-                  
+
                   <Stack direction="row" spacing={3} flexWrap="wrap" useFlexGap>
                     <Box>
-                      <Typography variant="h6" color="primary" gutterBottom sx={{ fontSize: '1rem' }}>
+                      <Typography variant="h6" color="primary" gutterBottom sx={{ fontSize: '1rem', fontWeight: 600 }}>
                         Technologies
                       </Typography>
                       <Stack direction="row" spacing={1} flexWrap="wrap" useFlexGap>
@@ -342,7 +394,7 @@ const ProjectsSection = ({ projects }: ProjectsSectionProps) => {
                         ))}
                       </Stack>
                     </Box>
-                    
+
                     <Box>
                       <Typography variant="h6" color="success.main" gutterBottom sx={{ fontSize: '1rem', fontWeight: 600 }}>
                         Key Highlights
@@ -364,4 +416,4 @@ const ProjectsSection = ({ projects }: ProjectsSectionProps) => {
   );
 };
 
-export default ProjectsSection;
+export default WorkExperienceSection;
