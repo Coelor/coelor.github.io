@@ -19,7 +19,13 @@ const App = () => {
           position: 'relative',
         }}
       >
-        <Navigation />
+        <Navigation 
+          navigation={portfolioData.navigation}
+          resumeUrl={portfolioData.resumeUrl}
+          contactMethods={portfolioData.contactMethods}
+          personalName={portfolioData.personal.name}
+          personalTitle={portfolioData.personal.title}
+        />
         <Box
           sx={{
             marginLeft: { xs: 0, sm: '280px' },

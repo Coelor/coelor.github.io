@@ -159,4 +159,8 @@ export interface AboutSectionProps {
 
 export interface NavigationProps {
   navigation: NavigationItem[];
+  resumeUrl?: string;
+  contactMethods: ContactMethod[];
+  personalName: string;
+  personalTitle: string;
 }
