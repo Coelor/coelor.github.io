@@ -50,7 +50,7 @@ export const portfolioData: PortfolioData = {
       techStack: ['TypeScript', 'AWS Amplify', 'Lambda', 'Cognito', 'DynamoDB'],
       completionDate: '2024',
       highlights: ['AWS serverless architecture', 'User authentication', 'Campaign management'],
-      githubUrl: '',
+      githubUrl: 'https://github.com/Coelor/dnd-character-creator',
       images: [
         {
           url: 'https://images.unsplash.com/photo-1578662996442-48f60103fc96?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTAwNDR8MHwxfHNlYXJjaHwxfHxkJmQlMjBkJmQlMjBnYW1lfGVufDB8MHx8fDE3NTg2MDA2NDR8MA&ixlib=rb-4.1.0&q=85',
@@ -187,5 +187,5 @@ export const portfolioData: PortfolioData = {
     { id: 'education', label: 'Education', icon: 'school', color: 'primary' },
   ],
 
-  resumeUrl: '/resume.pdf',
+  resumeUrl: '/resume/Gary_Brenden_Resume.pdf',
 };

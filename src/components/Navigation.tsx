@@ -69,17 +69,6 @@ const Title = styled(Typography)(({ theme }) => ({
   },
 }));
 
-const NameRow = styled(Box)(({ theme }) => ({
-  display: 'flex',
-  alignItems: 'baseline',
-  gap: theme.spacing(1.5),
-  flexWrap: 'wrap',
-  [theme.breakpoints.down('sm')]: {
-    gap: theme.spacing(1),
-  },
-}));
-
-
 const NavLinksWrapper = styled(Box)(({ theme }) => ({
   flex: 1,
   display: 'flex',
@@ -269,6 +258,7 @@ const Navigation = ({ navigation, resumeUrl, contactMethods, personalName, perso
     const handleScroll = () => {
       // Throttle scroll events to reduce jumping
       clearTimeout(timeoutId);
+
       timeoutId = setTimeout(() => {
         const sections = navItems.map(item => item.id);
         const scrollPosition = window.scrollY;
@@ -282,7 +272,6 @@ const Navigation = ({ navigation, resumeUrl, contactMethods, personalName, perso
           const element = document.getElementById(sectionId);
           
           if (element) {
-            const rect = element.getBoundingClientRect();
             const elementTop = element.offsetTop;
             const elementBottom = elementTop + element.offsetHeight;
             
@@ -364,11 +353,8 @@ const Navigation = ({ navigation, resumeUrl, contactMethods, personalName, perso
 
           {resumeUrl && (
             <ResumeButton
-              component="a"
-              href={resumeUrl}
-              target="_blank"
-              rel="noopener noreferrer"
               startIcon={<DescriptionIcon />}
+              onClick={() => window.open(resumeUrl, '_blank', 'noopener,noreferrer')}
             >
               Download Resume
             </ResumeButton>
@@ -382,12 +368,15 @@ const Navigation = ({ navigation, resumeUrl, contactMethods, personalName, perso
               {contactMethods.map((contact) => (
                 <ContactLink
                   key={contact.label}
-                  component="a"
-                  href={contact.url}
-                  target={contact.label !== 'Email' ? '_blank' : '_self'}
-                  rel={contact.label !== 'Email' ? 'noopener noreferrer' : undefined}
                   aria-label={`Contact via ${contact.label}`}
                   title={`Contact via ${contact.label}`}
+                  onClick={() => {
+                    if (contact.label === 'Email') {
+                      window.location.href = contact.url;
+                    } else {
+                      window.open(contact.url, '_blank', 'noopener,noreferrer');
+                    }
+                  }}
                 >
                   {getContactIcon(contact.label)}
                 </ContactLink>

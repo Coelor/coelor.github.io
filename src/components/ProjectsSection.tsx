@@ -173,8 +173,8 @@ const ProjectsSection = ({ projects }: ProjectsSectionProps) => {
         </Box>
       
       <Stack spacing={4}>
-        {projects.map((project, index) => (
-          <ProjectCard key={index} onClick={() => handleOpenModal(project)}>
+        {projects.map((project) => (
+          <ProjectCard key={project.id} onClick={() => handleOpenModal(project)}>
             <CardContent sx={{ p: 4, flex: 1, display: 'flex', flexDirection: 'column' }}>
               <Typography variant="h5" color="primary" gutterBottom sx={{ fontWeight: 600, mb: 2 }}>
                 {project.title}
