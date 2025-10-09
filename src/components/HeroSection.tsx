@@ -1,11 +1,6 @@
-import { Box, Typography, Button, Stack, Container } from '@mui/material';
+import { Box, Typography, Container } from '@mui/material';
 import { styled } from '@mui/material/styles';
-import DescriptionIcon from '@mui/icons-material/Description';
-import LinkedInIcon from '@mui/icons-material/LinkedIn';
-import GitHubIcon from '@mui/icons-material/GitHub';
-import EmailIcon from '@mui/icons-material/Email';
 import type { HeroSectionProps } from '../types/portfolio';
-import { portfolioData } from '../data/portfolioData';
 
 const HeroContainer = styled(Box)(({ theme }) => ({
   minHeight: '100vh',
@@ -70,103 +65,6 @@ const HeroSection = ({ personal }: HeroSectionProps) => {
         >
           {personal.bio.short}
         </Typography>
-
-        <Stack
-          direction={{ xs: 'column', sm: 'row' }}
-          spacing={2}
-          justifyContent="center"
-          sx={{ mb: 4 }}
-        >
-          {portfolioData.resumeUrl && (
-            <Button
-              variant="contained"
-              size="large"
-              component="a"
-              href={portfolioData.resumeUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              startIcon={<DescriptionIcon />}
-              sx={{
-                px: 4,
-                py: 1.5,
-                backgroundColor: 'white',
-                color: '#667eea',
-                fontWeight: 600,
-                fontSize: '1rem',
-                borderRadius: '8px',
-                boxShadow: '0 4px 14px rgba(0, 0, 0, 0.15)',
-                '&:hover': {
-                  backgroundColor: 'rgba(255, 255, 255, 0.95)',
-                  transform: 'translateY(-2px)',
-                  boxShadow: '0 6px 20px rgba(0, 0, 0, 0.2)',
-                },
-                transition: 'all 0.3s ease',
-              }}
-            >
-              Download Resume
-            </Button>
-          )}
-          <Button
-            variant="outlined"
-            size="large"
-            component="a"
-            href={portfolioData.contactMethods.find(c => c.label === 'LinkedIn')?.url}
-            target="_blank"
-            rel="noopener noreferrer"
-            startIcon={<LinkedInIcon />}
-            sx={{
-              px: 4,
-              py: 1.5,
-              borderColor: 'rgba(255, 255, 255, 0.8)',
-              color: 'white',
-              fontWeight: 600,
-              fontSize: '1rem',
-              borderRadius: '8px',
-              borderWidth: '2px',
-              '&:hover': {
-                borderColor: 'white',
-                backgroundColor: 'rgba(255, 255, 255, 0.1)',
-                transform: 'translateY(-2px)',
-                borderWidth: '2px',
-              },
-              transition: 'all 0.3s ease',
-            }}
-          >
-            LinkedIn
-          </Button>
-        </Stack>
-
-        <Stack direction="row" spacing={2} justifyContent="center">
-          {portfolioData.contactMethods.map((contact) => (
-            <Button
-              key={contact.label}
-              component="a"
-              href={contact.url}
-              target={contact.label !== 'Email' ? '_blank' : '_self'}
-              rel={contact.label !== 'Email' ? 'noopener noreferrer' : undefined}
-              sx={{
-                minWidth: '48px',
-                width: '48px',
-                height: '48px',
-                borderRadius: '50%',
-                backgroundColor: 'rgba(255, 255, 255, 0.2)',
-                color: 'white',
-                border: '2px solid rgba(255, 255, 255, 0.3)',
-                transition: 'all 0.3s ease',
-                '&:hover': {
-                  backgroundColor: 'white',
-                  color: '#667eea',
-                  borderColor: 'white',
-                  transform: 'translateY(-4px)',
-                },
-              }}
-            >
-              {contact.label === 'Email' && <EmailIcon />}
-              {contact.label === 'LinkedIn' && <LinkedInIcon />}
-              {contact.label === 'GitHub' && <GitHubIcon />}
-            </Button>
-          ))}
-        </Stack>
       </ContentWrapper>
     </HeroContainer>
   );

@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
 import { portfolioData } from '../data/portfolioData';
-import { PortfolioData, Project } from '../types/portfolio';
+import { Project } from '../types/portfolio';
 
 /**
  * Custom hook for accessing and manipulating portfolio data

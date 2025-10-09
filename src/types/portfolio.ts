@@ -156,9 +156,6 @@ export interface AboutSectionProps {
   personal: PersonalInfo;
 }
 
-export interface ContactSectionProps {
-  contactMethods: ContactMethod[];
-}
 
 export interface NavigationProps {
   navigation: NavigationItem[];

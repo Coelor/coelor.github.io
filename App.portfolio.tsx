@@ -5,7 +5,6 @@ import AboutSection from './src/components/AboutSection';
 import WorkExperienceSection from './src/components/WorkExperienceSection';
 import ProjectsSection from './src/components/ProjectsSection';
 import EducationSection from './src/components/EducationSection';
-import ContactSection from './src/components/ContactSection';
 import Navigation from './src/components/Navigation';
 import SkillsTicker from './src/components/SkillsTicker';
 import { portfolioData } from './src/data/portfolioData';
@@ -48,8 +47,6 @@ const App = () => {
             education={portfolioData.education}
             certifications={portfolioData.certifications}
           />
-
-          <ContactSection contactMethods={portfolioData.contactMethods} />
         </Box>
       </Box>
     </ThemeProvider>

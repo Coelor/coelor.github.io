@@ -314,6 +314,8 @@ const Navigation = () => {
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId);
     if (element) {
+      setActiveSection(sectionId); // Immediate visual feedback
+      
       const offset = 50; // Small offset for better positioning
       const elementPosition = element.offsetTop - offset;
       
