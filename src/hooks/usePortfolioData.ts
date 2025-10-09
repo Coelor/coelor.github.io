@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
 import { portfolioData } from '../data/portfolioData';
-import { PortfolioData, Project, BlogPost } from '../types/portfolio';
+import { Project } from '../types/portfolio';
 
 /**
  * Custom hook for accessing and manipulating portfolio data
@@ -13,50 +13,32 @@ export const usePortfolioData = () => {
     return data.projects.find(project => project.id === id);
   };
 
-  const getBlogPostById = (id: string): BlogPost | undefined => {
-    return data.blogPosts.find(post => post.id === id);
-  };
-
   const getFeaturedProjects = (): Project[] => {
-    return data.projects.filter(project => project.status === 'Completed').slice(0, 3);
+    return data.projects.filter(project => project.highlights && project.highlights.length > 0).slice(0, 3);
   };
 
-  const getFeaturedBlogPosts = (): BlogPost[] => {
-    return data.blogPosts.filter(post => post.featured).slice(0, 2);
-  };
-
-  const getProjectsByStatus = (status: Project['status']): Project[] => {
-    return data.projects.filter(project => project.status === status);
-  };
-
-  const getBlogPostsByCategory = (category: string): BlogPost[] => {
-    return data.blogPosts.filter(post => post.category === category);
-  };
-
-  const getSkillByName = (name: string) => {
-    for (const category of data.skillCategories) {
-      const skill = category.skills.find(s => s.name === name);
-      if (skill) return skill;
-    }
-    return undefined;
+  const getSkillByCategory = (category: string) => {
+    return data.skillTags.filter(skill => skill.category === category);
   };
 
   const getTotalYearsExperience = (): number => {
-    const startYear = parseInt(data.timeline[0]?.year || '2018');
+    // Calculate from the earliest work experience
+    if (data.workExperience.length === 0) return 0;
+    
+    const years = data.workExperience
+      .map(exp => {
+        // Split duration by '–' and extract year from the first part
+        const startPart = exp.duration.split('–')[0].trim();
+        const yearMatch = startPart.match(/\b\d{4}\b/);
+        return yearMatch ? parseInt(yearMatch[0]) : undefined;
+      })
+      .filter((year): year is number => year !== undefined);
+
+    if (years.length === 0) return 0;
+
+    const startYear = Math.min(...years);
     const currentYear = new Date().getFullYear();
     return currentYear - startYear;
-  };
-
-  const getHighestSkillLevel = (): number => {
-    let maxLevel = 0;
-    data.skillCategories.forEach(category => {
-      category.skills.forEach(skill => {
-        if (skill.level > maxLevel) {
-          maxLevel = skill.level;
-        }
-      });
-    });
-    return maxLevel;
   };
 
   return {
@@ -65,19 +47,15 @@ export const usePortfolioData = () => {
     
     // Helper functions
     getProjectById,
-    getBlogPostById,
     getFeaturedProjects,
-    getFeaturedBlogPosts,
-    getProjectsByStatus,
-    getBlogPostsByCategory,
-    getSkillByName,
+    getSkillByCategory,
     getTotalYearsExperience,
-    getHighestSkillLevel,
     
     // Computed values
     totalProjects: data.projects.length,
-    completedProjects: data.projects.filter(p => p.status === 'Completed').length,
-    totalBlogPosts: data.blogPosts.length,
-    totalSkills: data.skillCategories.reduce((total, category) => total + category.skills.length, 0),
+    totalWorkExperience: data.workExperience.length,
+    totalSkills: data.skillTags.length,
+    totalEducation: data.education.length,
+    totalCertifications: data.certifications.length,
   };
 };

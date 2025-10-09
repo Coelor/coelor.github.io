@@ -4,141 +4,163 @@ export const portfolioData: PortfolioData = {
   personal: {
     name: 'Gary Brenden',
     title: 'Junior Software Engineer',
-    level: 'Level 99 Developer', // Remove later 
-    role: 'Full Stack Wizard',
-    avatar: '',
     bio: {
-      short: 'bio short',
-      origin: '',
-      current: 'bio',
+      short: "Unity and VR developer passionate about building immersive simulations and scalable systems.",
+      origin: 'Started my software development journey focusing on game development, VR technologies, and cloud systems',
+      current: 'Currently working as a Virtual Reality Software Engineer at UNeTech Institute, developing VR training simulations for Meta Quest 3',
     },
   },
 
-  coreStats: [
-    { label: 'Backend', value: 85 },
-    { label: '', value: 0 },
-  ],
-
-  skillCategories: [
-    // {
-    //   title: 'Frontend Arsenal',
-    //   skills: [
-    //     { name: 'React/Next.js', level: 95, experience: '5+ years' },
-    //     { name: 'TypeScript', level: 90, experience: '4+ years' },
-    //     { name: 'Vue.js', level: 85, experience: '3+ years' },
-    //     { name: 'CSS/SCSS', level: 90, experience: '6+ years' },
-    //   ],
-    // },
+  workExperience: [
     {
-      title: 'Backend Mastery',
-      skills: [
-        { name: 'MongoDB', level: 75, experience: '2+ years' },
-      ],
+      id: 'unetech',
+      company: 'UNeTech Institute',
+      position: 'Virtual Reality Software Engineer',
+      duration: 'Feb 2025 – Present',
+      location: 'Remote',
+      responsibilities: 'Developed VR training simulations for Meta Quest 3 using Unity, C#, and PlayFab. Helped modularize dialogue systems, integrated PlayFab analytics, and collaborated with instructional designers to align VR features with educational goals.',
+      projects: [],
     },
-    // {
-    //   title: 'DevOps & Tools',
-    //   skills: [
-    //     { name: 'Docker', level: 80, experience: '3+ years' },
-    //     { name: 'AWS', level: 75, experience: '2+ years' },
-    //     { name: 'Git', level: 95, experience: '6+ years' },
-    //     { name: 'CI/CD', level: 70, experience: '2+ years' },
-    //   ],
-    // },
-  ],
-
-  timeline: [
-    // {
-    //   year: '2018',
-    //   title: 'The Beginning',
-    //   description: 'Started the coding journey with HTML, CSS, and JavaScript. First steps into the digital realm.',
-    // },
+    {
+      id: 'encartele',
+      company: 'Encartele',
+      position: 'Support Technician',
+      duration: 'Oct 2024 – Feb 2025',
+      location: 'Remote',
+      responsibilities: 'Resolved 100+ client support tickets, configured routers and VoIP systems, and created onboarding materials for clients. Worked with ISPs and IT teams to diagnose and resolve connectivity issues.',
+      projects: [],
+    },
+    {
+      id: 'ipg',
+      company: 'Interpublic Group (IPG)',
+      position: 'Data Analyst Intern',
+      duration: 'Oct 2022 – Sep 2024',
+      location: 'Remote',
+      responsibilities: 'Built and managed data hierarchies, developed SQL scripts for compliance, and performed QA testing on internal tools. Authored documentation to standardize workflows and audited data entries for accuracy.',
+      projects: [],
+    },
   ],
 
   projects: [
-    // {
-    //   id: 'ecommerce-platform',
-    //   title: 'E-Commerce Platform Quest',
-    //   description: 'Built a full-stack e-commerce platform with React, Node.js, and PostgreSQL. Features include user authentication, payment processing, and admin dashboard.',
-    //   longDescription: 'A comprehensive e-commerce solution featuring modern UI/UX design, secure payment processing with Stripe integration, real-time inventory management, advanced search and filtering capabilities, responsive design for all devices, and a powerful admin dashboard for managing products, orders, and analytics.',
-    //   difficulty: 'Expert',
-    //   status: 'Completed',
-    //   techStack: ['React', 'Node.js', 'PostgreSQL', 'Stripe', 'AWS'],
-    //   completionDate: '2024',
-    //   rewards: ['Full Stack Mastery', 'Payment Integration', 'Cloud Deployment'],
-    //   githubUrl: 'https://github.com/johndoe/ecommerce-platform',
-    //   liveUrl: 'https://ecommerce-demo.johndoe.dev',
-    //   images: [
-    //     {
-    //       url: 'https://images.unsplash.com/photo-1642052503083-bc49dd433478?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTAwNDR8MHwxfHNlYXJjaHwxfHx3ZWJzaXRlJTIwZGFzaGJvYXJkJTIwZWNvbW1lcmNlfGVufDB8MHx8fDE3NTg2MDA2NDR8MA&ixlib=rb-4.1.0&q=85',
-    //       alt: 'E-commerce platform dashboard - PiggyBank on Unsplash',
-    //       caption: 'Admin Dashboard Overview',
-    //     },
-    //     {
-    //       url: 'https://images.unsplash.com/photo-1642132652860-471b4228023e?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTAwNDR8MHwxfHNlYXJjaHwyfHx3ZWJzaXRlJTIwZGFzaGJvYXJkJTIwZWNvbW1lcmNlfGVufDB8MHx8fDE3NTg2MDA2NDR8MA&ixlib=rb-4.1.0&q=85',
-    //       alt: 'E-commerce website interface - Team Nocoloco on Unsplash',
-    //       caption: 'Product Catalog Interface',
-    //     },
-    //     {
-    //       url: 'https://images.unsplash.com/photo-1642054220942-d3c7dd1466cb?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTAwNDR8MHwxfHNlYXJjaHw2fHx3ZWJzaXRlJTIwZGFzaGJvYXJkJTIwZWNvbW1lcmNlfGVufDB8MHx8fDE3NTg2MDA2NDR8MA&ixlib=rb-4.1.0&q=85',
-    //       alt: 'E-commerce checkout process - PiggyBank on Unsplash',
-    //       caption: 'Checkout & Payment Flow',
-    //     },
-    //   ],
-    // },
-    
+    {
+      id: 'dnd-character-creator',
+      title: 'DnD Character Creator',
+      description: 'Full-stack web application for managing D&D characters and campaigns using AWS services.',
+      longDescription: 'Built a comprehensive D&D character management system with user authentication, character creation, and campaign management. Leveraged AWS Amplify for hosting, Lambda for serverless functions, and DynamoDB for data persistence.',
+      techStack: ['TypeScript', 'AWS Amplify', 'Lambda', 'Cognito', 'DynamoDB'],
+      completionDate: '2024',
+      highlights: ['AWS serverless architecture', 'User authentication', 'Campaign management'],
+      githubUrl: 'https://github.com/Coelor/dnd-character-creator',
+      images: [
+        {
+          url: 'https://images.unsplash.com/photo-1578662996442-48f60103fc96?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTAwNDR8MHwxfHNlYXJjaHwxfHxkJmQlMjBkJmQlMjBnYW1lfGVufDB8MHx8fDE3NTg2MDA2NDR8MA&ixlib=rb-4.1.0&q=85',
+          alt: 'D&D character sheets and dice',
+          caption: 'D&D Character Management',
+        },
+      ],
+    },
+    {
+      id: 'playfab-analysis-tool',
+      title: 'PlayFab Analysis Tool',
+      description: 'Analytics dashboard to retrieve and visualize player data, supporting QA and stakeholder insights.',
+      longDescription: 'Developed a comprehensive analytics dashboard using .NET and React to interface with PlayFab API. Created visualizations for player behavior, game metrics, and performance data to support QA testing and business decisions.',
+      techStack: ['C#', '.NET', 'React', 'PlayFab API'],
+      completionDate: '2024',
+      highlights: ['Real-time analytics', 'PlayFab integration', 'Data visualization'],
+      githubUrl: 'https://github.com/Coelor/playfab-analysis-tool',
+      images: [
+        {
+          url: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTAwNDR8MHwxfHNlYXJjaHwxfHxhbmFseXRpY3N8ZW58MHwwfHx8MTc1ODYwMDY0NHww&ixlib=rb-4.1.0&q=85',
+          alt: 'Analytics dashboard with charts and graphs',
+          caption: 'Analytics Dashboard',
+        },
+      ],
+    },
+    {
+      id: 'idle-game',
+      title: 'Idle Game',
+      description: 'Unity-based idle game project demonstrating gameplay systems and incremental mechanics.',
+      longDescription: 'Created an idle/incremental game in Unity showcasing various game development concepts including save systems, upgrade mechanics, and progression systems. Implemented efficient performance optimization for continuous gameplay.',
+      techStack: ['C#', 'Unity'],
+      completionDate: '2023',
+      highlights: ['Incremental mechanics', 'Save system', 'Performance optimization'],
+      githubUrl: '',
+      images: [
+        {
+          url: 'https://images.unsplash.com/photo-1511512578047-dfb367046420?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTAwNDR8MHwxfHNlYXJjaHwxfHxnYW1lJTIwZGV2ZWxvcG1lbnR8ZW58MHwwfHx8MTc1ODYwMDY0NHww&ixlib=rb-4.1.0&q=85',
+          alt: 'Game development environment',
+          caption: 'Unity Game Development',
+        },
+      ],
+    },
+    {
+      id: 'subtitle-display-tool',
+      title: 'Subtitle Display Tool',
+      description: 'Academic project for handling subtitle parsing and display, with support for multiple formats.',
+      longDescription: 'Developed a C++ application for parsing and displaying subtitles in various formats. Implemented efficient text rendering, timing synchronization, and support for multiple subtitle file types as part of academic coursework.',
+      techStack: ['C++'],
+      completionDate: '2023',
+      highlights: ['Multiple format support', 'Text rendering', 'Academic project'],
+      githubUrl: '',
+      images: [
+        {
+          url: 'https://images.unsplash.com/photo-1515879218367-8466d910aaa4?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTAwNDR8MHwxfHNlYXJjaHwxfHxjb2RlfGVufDB8MHx8fDE3NTg2MDA2NDR8MA&ixlib=rb-4.1.0&q=85',
+          alt: 'Code editor with C++ programming',
+          caption: 'C++ Development',
+        },
+      ],
+    },
   ],
 
-  blogPosts: [
-    // {
-    //   id: 'scalable-react-2024',
-    //   title: 'Mission Log: Building Scalable React Applications',
-    //   date: '2024-01-15',
-    //   category: 'Frontend',
-    //   excerpt: 'Discovered advanced patterns for building scalable React applications. Explored component composition, custom hooks, and state management strategies that have proven effective in large-scale projects.',
-    //   readTime: '8 min read',
-    //   tags: ['React', 'Architecture', 'Best Practices'],
-    //   slug: 'building-scalable-react-applications',
-    //   featured: true,
-    // },
-    // {
-    //   id: 'typescript-mastery-2024',
-    //   title: 'Quest Report: Mastering TypeScript in 2024',
-    //   date: '2024-01-08',
-    //   category: 'Development',
-    //   excerpt: 'Deep dive into advanced TypeScript features and how they can improve code quality and developer experience. Covered utility types, conditional types, and template literal types.',
-    //   readTime: '12 min read',
-    //   tags: ['TypeScript', 'JavaScript', 'Types'],
-    //   slug: 'mastering-typescript-2024',
-    //   featured: true,
-    // },
-    // {
-    //   id: 'modern-css-techniques',
-    //   title: 'Field Notes: Modern CSS Techniques',
-    //   date: '2024-01-01',
-    //   category: 'Design',
-    //   excerpt: 'Explored the latest CSS features including container queries, cascade layers, and modern layout techniques. How these tools are changing the way we approach responsive design.',
-    //   readTime: '6 min read',
-    //   tags: ['CSS', 'Design', 'Responsive'],
-    //   slug: 'modern-css-techniques',
-    // },
-    // {
-    //   id: 'nextjs-14-journey',
-    //   title: 'Adventure Log: My Journey with Next.js 14',
-    //   date: '2023-12-20',
-    //   category: 'Framework',
-    //   excerpt: 'Comprehensive guide to Next.js 14 features including the new App Router, Server Components, and improved performance optimizations. Real-world examples and migration tips.',
-    //   readTime: '15 min read',
-    //   tags: ['Next.js', 'React', 'Performance'],
-    //   slug: 'nextjs-14-journey',
-    // },
+  education: [
+    {
+      id: 'community-college',
+      degree: 'Associate of Science in Computer Science',
+      school: 'Metropolitan Community College',
+      year: '2020 - 2022',
+      location: 'Omaha, Nebraska',
+      description: '',
+    },
+    {
+      id: 'university',
+      degree: 'Bachelor of Science in Computer Science',
+      school: 'University of Nebraska at Omaha',
+      year: '2022 - 2025',
+      location: 'Omaha, Nebraska',
+      description: '',
+    },
+  ],
+
+  certifications: [
+    {
+      id: 'scrummaster-cert',
+      name: 'Certified Scrum Master (CSM)',
+      issuer: 'Scrum Alliance',
+      year: '2025 - 2027',
+    },
+  ],
+
+  skillTags: [
+    { name: 'Unity', category: 'Game Development' },
+    { name: 'C#', category: 'Programming' },
+    { name: '.NET', category: 'Framework' },
+    { name: 'React', category: 'Frontend' },
+    { name: 'TypeScript', category: 'Programming' },
+    { name: 'AWS', category: 'Cloud' },
+    { name: 'Azure (PlayFab)', category: 'Cloud' },
+    { name: 'Git', category: 'Tools' },
+    { name: 'Agile Scrum', category: 'Methodology' },
+    { name: 'Node.js', category: 'Backend' },
+    { name: 'MongoDB', category: 'Database' },
+    { name: 'REST API', category: 'Backend' },
   ],
 
   contactMethods: [
     {
       label: 'Email',
-      value: '',
+      value: 'gary.brenden.dev@gmail.com',
       status: 'Online',
-      url: 'mailto:',
+      url: 'mailto:gary.brenden.dev@gmail.com',
       icon: 'email',
     },
     {
@@ -155,20 +177,15 @@ export const portfolioData: PortfolioData = {
       url: 'https://github.com/coelor',
       icon: 'github',
     },
-    // {
-    //   label: 'Discord',
-    //   value: 'JohnDoe#1234',
-    //   status: 'Available',
-    //   icon: 'discord',
-    // },
   ],
 
   navigation: [
     { id: 'hero', label: 'Home', icon: 'home', color: 'primary' },
-    { id: 'projects', label: 'Projects', icon: 'work', color: 'secondary' },
-    { id: 'skills', label: 'Skills', icon: 'trophy', color: 'success' },
     { id: 'about', label: 'About', icon: 'person', color: 'primary' },
-    { id: 'blog', label: 'Blog', icon: 'book', color: 'success' },
-    { id: 'contact', label: 'Contact', icon: 'mail', color: 'primary' },
+    { id: 'experience', label: 'Experience', icon: 'work', color: 'primary' },
+    { id: 'projects', label: 'Projects', icon: 'build', color: 'primary' },
+    { id: 'education', label: 'Education', icon: 'school', color: 'primary' },
   ],
+
+  resumeUrl: '/resume/Gary_Brenden_Resume.pdf',
 };

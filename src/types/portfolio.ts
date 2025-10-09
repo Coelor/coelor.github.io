@@ -2,9 +2,6 @@
 export interface PersonalInfo {
   name: string;
   title: string;
-  level: string;
-  role: string;
-  avatar: string;
   bio: {
     short: string;
     origin: string;
@@ -12,39 +9,15 @@ export interface PersonalInfo {
   };
 }
 
-export interface CoreStat {
-  label: string;
-  value: number;
-}
-
-export interface Skill {
-  name: string;
-  level: number;
-  experience: string;
-}
-
-export interface SkillCategory {
-  title: string;
-  skills: Skill[];
-}
-
-export interface TimelineEvent {
-  year: string;
-  title: string;
-  description: string;
-}
-
 export interface Project {
   id: string;
   title: string;
   description: string;
   longDescription: string;
-  difficulty: 'Easy' | 'Medium' | 'Hard' | 'Expert';
-  status: 'Completed' | 'In Progress' | 'Planning';
   techStack: string[];
   completionDate: string;
-  rewards: string[];
-  githubUrl: string;
+  highlights: string[];
+  githubUrl?: string;
   liveUrl?: string;
   images: ProjectImage[];
 }
@@ -53,6 +26,29 @@ export interface ProjectImage {
   url: string;
   alt: string;
   caption?: string;
+}
+
+export interface MediaContent {
+  type: 'image' | 'video' | 'youtube';
+  url: string;
+  alt?: string;
+  caption?: string;
+  thumbnail?: string;
+}
+
+export interface SectionConfig {
+  id: string;
+  title: string;
+  subtitle?: string;
+  layout: 'hero' | 'media-left' | 'media-right' | 'centered' | 'columns' | 'slider';
+  background?: {
+    type: 'color' | 'gradient' | 'image';
+    value: string;
+    overlay?: string;
+  };
+  media?: MediaContent;
+  content?: string;
+  visible: boolean;
 }
 
 export interface BlogPost {
@@ -89,45 +85,82 @@ export interface NavigationItem {
   color: 'primary' | 'secondary' | 'success' | 'warning' | 'error' | 'info';
 }
 
+export interface WorkExperience {
+  id: string;
+  company: string;
+  position: string;
+  duration: string;
+  location?: string;
+  responsibilities: string;
+  projects: Project[];
+}
+
+export interface Education {
+  id: string;
+  degree: string;
+  school: string;
+  year: string;
+  location?: string;
+  description?: string;
+}
+
+export interface Certification {
+  id: string;
+  name: string;
+  issuer: string;
+  year: string;
+  credentialUrl?: string;
+}
+
+export interface SkillTag {
+  name: string;
+  category?: string;
+}
+
 // Main Portfolio Data Interface
 export interface PortfolioData {
   personal: PersonalInfo;
-  coreStats: CoreStat[];
-  skillCategories: SkillCategory[];
-  timeline: TimelineEvent[];
   projects: Project[];
-  blogPosts: BlogPost[];
+  workExperience: WorkExperience[];
+  education: Education[];
+  certifications: Certification[];
+  skillTags: SkillTag[];
   contactMethods: ContactMethod[];
   navigation: NavigationItem[];
+  resumeUrl?: string;
 }
 
 // Component Props Interfaces
 export interface HeroSectionProps {
   personal: PersonalInfo;
-  coreStats: CoreStat[];
-}
-
-export interface SkillsSectionProps {
-  skillCategories: SkillCategory[];
 }
 
 export interface ProjectsSectionProps {
   projects: Project[];
 }
 
+export interface WorkExperienceSectionProps {
+  workExperience: WorkExperience[];
+}
+
+export interface EducationSectionProps {
+  education: Education[];
+  certifications: Certification[];
+}
+
+export interface SkillsTickerProps {
+  skills: SkillTag[];
+}
+
 export interface AboutSectionProps {
   personal: PersonalInfo;
-  timeline: TimelineEvent[];
 }
 
-export interface BlogSectionProps {
-  blogPosts: BlogPost[];
-}
-
-export interface ContactSectionProps {
-  contactMethods: ContactMethod[];
-}
 
 export interface NavigationProps {
   navigation: NavigationItem[];
+  resumeUrl?: string;
+  contactMethods: ContactMethod[];
+  personalName: string;
+  personalTitle: string;
 }

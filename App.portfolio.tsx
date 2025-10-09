@@ -1,53 +1,59 @@
-import React from 'react';
-import { ThemeProvider, CssBaseline } from '@mui/material';
-import { Box, Container } from '@mui/material';
+import { ThemeProvider, CssBaseline, Box } from '@mui/material';
 import theme from './src/theme';
 import HeroSection from './src/components/HeroSection';
-import SkillsSection from './src/components/SkillsSection';
-import ProjectsSection from './src/components/ProjectsSection';
 import AboutSection from './src/components/AboutSection';
-import BlogSection from './src/components/BlogSection';
-import ContactSection from './src/components/ContactSection';
+import WorkExperienceSection from './src/components/WorkExperienceSection';
+import ProjectsSection from './src/components/ProjectsSection';
+import EducationSection from './src/components/EducationSection';
 import Navigation from './src/components/Navigation';
-import { usePortfolioData } from './src/hooks/usePortfolioData';
+import SkillsTicker from './src/components/SkillsTicker';
+import { portfolioData } from './src/data/portfolioData';
 
-const App: React.FC = () => {
-  const portfolioData = usePortfolioData();
-
+const App = () => {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <Box
         sx={{
           minHeight: '100vh',
-          background: (theme) => `
-            radial-gradient(circle at 20% 20%, ${theme.palette.primary.main}08 0%, transparent 50%),
-            radial-gradient(circle at 80% 80%, ${theme.palette.secondary.main}08 0%, transparent 50%),
-            ${theme.palette.background.default}
-          `,
           position: 'relative',
         }}
       >
-        <Container maxWidth="lg" sx={{ position: 'relative', zIndex: 1 }}>
-          <HeroSection 
-            personal={portfolioData.personal} 
-            coreStats={portfolioData.coreStats} 
+        <Navigation 
+          navigation={portfolioData.navigation}
+          resumeUrl={portfolioData.resumeUrl}
+          contactMethods={portfolioData.contactMethods}
+          personalName={portfolioData.personal.name}
+          personalTitle={portfolioData.personal.title}
+        />
+        <Box
+          sx={{
+            marginLeft: { xs: 0, sm: '280px' },
+            minHeight: '100vh',
+            transition: 'margin-left 0.3s ease',
+            '@media (max-width: 899px)': {
+              marginLeft: '260px',
+            },
+            '@media (max-width: 599px)': {
+              marginLeft: 0,
+            },
+          }}
+        >
+          <HeroSection personal={portfolioData.personal} />
+
+          <SkillsTicker skills={portfolioData.skillTags} />
+
+          <AboutSection personal={portfolioData.personal} />
+
+          <WorkExperienceSection workExperience={portfolioData.workExperience} />
+
+          <ProjectsSection projects={portfolioData.projects} />
+
+          <EducationSection
+            education={portfolioData.education}
+            certifications={portfolioData.certifications}
           />
-          <SkillsSection 
-            skillCategories={portfolioData.skillCategories} 
-          />
-          <ProjectsSection 
-            projects={portfolioData.projects} 
-          />
-          <AboutSection 
-            personal={portfolioData.personal} 
-            timeline={portfolioData.timeline} 
-          />
-          <ContactSection 
-            contactMethods={portfolioData.contactMethods} 
-          />
-        </Container>
-        <Navigation />
+        </Box>
       </Box>
     </ThemeProvider>
   );
