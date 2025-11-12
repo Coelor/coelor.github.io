@@ -39,7 +39,7 @@
     "eslint-plugin-react-x": "^2.0.6",
     "globals": "^15.15.0",
     "rollup": "^4.44.1",
-    "typescript": "~5.7.2",
+    "typescript": "~5.9.3",
     "typescript-eslint": "^8.24.1",
     "vite": "^6.2.0",
     "vite-plugin-static-copy": "^3.1.3",
