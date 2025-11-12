@@ -53,9 +53,9 @@ export const portfolioData: PortfolioData = {
       githubUrl: 'https://github.com/Coelor/dnd-character-creator',
       images: [
         {
-          url: 'https://images.unsplash.com/photo-1578662996442-48f60103fc96?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTAwNDR8MHwxfHNlYXJjaHwxfHxkJmQlMjBkJmQlMjBnYW1lfGVufDB8MHx8fDE3NTg2MDA2NDR8MA&ixlib=rb-4.1.0&q=85',
-          alt: 'D&D character sheets and dice',
-          caption: 'D&D Character Management',
+          url: 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="800" height="600" viewBox="0 0 800 600"%3E%3Crect width="800" height="600" fill="%23f5f5f5"/%3E%3Ctext x="400" y="280" font-family="Arial, sans-serif" font-size="32" fill="%23666" text-anchor="middle"%3EImage Coming Soon%3C/text%3E%3Ctext x="400" y="320" font-family="Arial, sans-serif" font-size="18" fill="%23999" text-anchor="middle"%3EDnD Character Creator%3C/text%3E%3C/svg%3E',
+          alt: 'Placeholder - Image coming soon',
+          caption: 'Project screenshot coming soon',
         },
       ],
     },
@@ -70,9 +70,9 @@ export const portfolioData: PortfolioData = {
       githubUrl: 'https://github.com/Coelor/playfab-analysis-tool',
       images: [
         {
-          url: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTAwNDR8MHwxfHNlYXJjaHwxfHxhbmFseXRpY3N8ZW58MHwwfHx8MTc1ODYwMDY0NHww&ixlib=rb-4.1.0&q=85',
-          alt: 'Analytics dashboard with charts and graphs',
-          caption: 'Analytics Dashboard',
+          url: 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="800" height="600" viewBox="0 0 800 600"%3E%3Crect width="800" height="600" fill="%23f5f5f5"/%3E%3Ctext x="400" y="280" font-family="Arial, sans-serif" font-size="32" fill="%23666" text-anchor="middle"%3EImage Coming Soon%3C/text%3E%3Ctext x="400" y="320" font-family="Arial, sans-serif" font-size="18" fill="%23999" text-anchor="middle"%3EPlayFab Analysis Tool%3C/text%3E%3C/svg%3E',
+          alt: 'Placeholder - Image coming soon',
+          caption: 'Project screenshot coming soon',
         },
       ],
     },
@@ -87,9 +87,9 @@ export const portfolioData: PortfolioData = {
       githubUrl: '',
       images: [
         {
-          url: 'https://images.unsplash.com/photo-1511512578047-dfb367046420?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTAwNDR8MHwxfHNlYXJjaHwxfHxnYW1lJTIwZGV2ZWxvcG1lbnR8ZW58MHwwfHx8MTc1ODYwMDY0NHww&ixlib=rb-4.1.0&q=85',
-          alt: 'Game development environment',
-          caption: 'Unity Game Development',
+          url: 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="800" height="600" viewBox="0 0 800 600"%3E%3Crect width="800" height="600" fill="%23f5f5f5"/%3E%3Ctext x="400" y="280" font-family="Arial, sans-serif" font-size="32" fill="%23666" text-anchor="middle"%3EImage Coming Soon%3C/text%3E%3Ctext x="400" y="320" font-family="Arial, sans-serif" font-size="18" fill="%23999" text-anchor="middle"%3EIdle Game%3C/text%3E%3C/svg%3E',
+          alt: 'Placeholder - Image coming soon',
+          caption: 'Project screenshot coming soon',
         },
       ],
     },
@@ -104,9 +104,9 @@ export const portfolioData: PortfolioData = {
       githubUrl: '',
       images: [
         {
-          url: 'https://images.unsplash.com/photo-1515879218367-8466d910aaa4?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTAwNDR8MHwxfHNlYXJjaHwxfHxjb2RlfGVufDB8MHx8fDE3NTg2MDA2NDR8MA&ixlib=rb-4.1.0&q=85',
-          alt: 'Code editor with C++ programming',
-          caption: 'C++ Development',
+          url: 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="800" height="600" viewBox="0 0 800 600"%3E%3Crect width="800" height="600" fill="%23f5f5f5"/%3E%3Ctext x="400" y="280" font-family="Arial, sans-serif" font-size="32" fill="%23666" text-anchor="middle"%3EImage Coming Soon%3C/text%3E%3Ctext x="400" y="320" font-family="Arial, sans-serif" font-size="18" fill="%23999" text-anchor="middle"%3ESubtitle Display Tool%3C/text%3E%3C/svg%3E',
+          alt: 'Placeholder - Image coming soon',
+          caption: 'Project screenshot coming soon',
         },
       ],
     },
