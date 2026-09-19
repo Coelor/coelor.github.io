@@ -2,7 +2,7 @@
 
 A modern, responsive portfolio website showcasing the work and experience of Gary Brenden, a Virtual Reality Software Engineer and Junior Software Developer. Built with React, TypeScript, and Material-UI.
 
-🌐 **Live Demo:** [View Portfolio](https://your-username.github.io/portfolio)
+🌐 **Live Demo:** [View Portfolio](https://coelor.github.io)
 
 ## ✨ Features
 
@@ -42,8 +42,8 @@ A modern, responsive portfolio website showcasing the work and experience of Gar
 ### Installation
 ```bash
 # Clone the repository
-git clone https://github.com/your-username/portfolio.git
-cd portfolio
+git clone https://github.com/Coelor/coelor.github.io.git
+cd coelor.github.io
 
 # Install dependencies
 npm install
@@ -108,7 +108,7 @@ The project is configured for automatic deployment to GitHub Pages via GitHub Ac
 
 1. Push changes to the `main` branch
 2. GitHub Actions automatically builds and deploys
-3. Site is available at `https://your-username.github.io/portfolio`
+3. Site is available at `https://coelor.github.io`
 
 ### Manual Deployment
 ```bash
@@ -140,9 +140,9 @@ While this is a personal portfolio, suggestions and improvements are welcome:
 ## 📞 Contact
 
 **Gary Brenden**
-- LinkedIn: [Your LinkedIn](https://linkedin.com/in/your-profile)
-- GitHub: [Your GitHub](https://github.com/your-username)
-- Email: your.email@example.com
+- LinkedIn: [linkedin.com/in/gary-brenden](https://linkedin.com/in/gary-brenden)
+- GitHub: [github.com/coelor](https://github.com/coelor)
+- Email: gary.brenden.dev@gmail.com
 
 ---
 
