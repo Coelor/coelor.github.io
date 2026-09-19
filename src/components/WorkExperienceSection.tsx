@@ -267,7 +267,7 @@ const WorkExperienceSection = ({ workExperience }: WorkExperienceSectionProps) =
                                   color="primary"
                                   size="small"
                                   startIcon={<GitHubIcon />}
-                                  onClick={(e) => handleLinkClick(project.githubUrl!, e)}
+                                  onClick={(e) => handleLinkClick(project.githubUrl, e)}
                                 >
                                   GitHub
                                 </Button>
@@ -278,7 +278,7 @@ const WorkExperienceSection = ({ workExperience }: WorkExperienceSectionProps) =
                                   color="primary"
                                   size="small"
                                   startIcon={<LaunchIcon />}
-                                  onClick={(e) => handleLinkClick(project.liveUrl!, e)}
+                                  onClick={(e) => handleLinkClick(project.liveUrl, e)}
                                 >
                                   Live Demo
                                 </Button>
