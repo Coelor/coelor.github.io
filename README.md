@@ -30,8 +30,7 @@ A modern, responsive portfolio website showcasing the work and experience of Gar
 ### Key Libraries
 - `@mui/material` - UI components and theming
 - `@mui/icons-material` - Professional iconography
-- `date-fns` - Date formatting and calculations
-- `react-error-boundary` - Error handling
+- `@emotion/styled` - Styled component authoring
 
 ## 🛠 Development
 
