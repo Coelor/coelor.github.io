@@ -1,5 +1,6 @@
 import { Component, type ErrorInfo, type ReactNode } from 'react';
-import { Box, Button, Typography } from '@mui/material';
+import { Box, Button, Link, Typography } from '@mui/material';
+import { portfolioData } from '../data/portfolioData';
 
 interface ErrorBoundaryProps {
   children: ReactNode;
@@ -8,6 +9,11 @@ interface ErrorBoundaryProps {
 interface ErrorBoundaryState {
   hasError: boolean;
 }
+
+// The fallback below replaces the whole app, including the nav's contact
+// links, so it needs its own working contact link rather than referring to
+// links that are no longer on the page.
+const emailContact = portfolioData.contactMethods.find((method) => method.label === 'Email');
 
 class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
   state: ErrorBoundaryState = { hasError: false };
@@ -39,8 +45,17 @@ class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
             Something went wrong
           </Typography>
           <Typography variant="body1" color="text.secondary" sx={{ maxWidth: '480px' }}>
-            Please refresh the page. If the problem persists, reach out through the contact
-            links below.
+            Please refresh the page.
+            {emailContact && (
+              <>
+                {' '}
+                If the problem persists, reach out at{' '}
+                <Link href={emailContact.url} color="inherit">
+                  {emailContact.value}
+                </Link>
+                .
+              </>
+            )}
           </Typography>
           <Button variant="contained" onClick={() => window.location.reload()}>
             Refresh
