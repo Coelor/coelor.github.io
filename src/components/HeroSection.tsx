@@ -39,8 +39,12 @@ const HeroSection = ({ personal }: HeroSectionProps) => {
           {personal.name}
         </Typography>
 
+        {/* A tagline under the name, not an independently-navigable
+            section heading — component="p" keeps h1 -> h2 (About Me,
+            first section below) from skipping a level. */}
         <Typography
           variant="h4"
+          component="p"
           gutterBottom
           sx={{
             fontSize: { xs: '1.25rem', md: '1.75rem' },
