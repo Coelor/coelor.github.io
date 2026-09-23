@@ -38,14 +38,23 @@ const TickerContainer = styled(Box)(({ theme }) => ({
   },
 }));
 
-const TickerTrack = styled(Box)({
+const TickerTrack = styled(Box)(({ theme }) => ({
   display: 'flex',
   gap: '16px',
   animation: `${scroll} 30s linear infinite`,
-  '&:hover': {
+  // Hover pauses for mouse users; :focus-visible gives keyboard users the
+  // same control now that the track itself is a tab stop (tabIndex below).
+  '&:hover, &:focus-visible': {
     animationPlayState: 'paused',
   },
-});
+  '&:focus-visible': {
+    outline: `2px solid ${theme.palette.primary.main}`,
+    outlineOffset: '4px',
+  },
+  '@media (prefers-reduced-motion: reduce)': {
+    animation: 'none',
+  },
+}));
 
 const SkillChip = styled(Chip)(({ theme }) => ({
   backgroundColor: theme.palette.grey[100],
@@ -66,18 +75,22 @@ const SkillChip = styled(Chip)(({ theme }) => ({
 }));
 
 const SkillsTicker = ({ skills }: SkillsTickerProps) => {
-  // Duplicate skills array to create seamless loop
-  const duplicatedSkills = [...skills, ...skills];
-
   return (
     <TickerContainer>
-      <TickerTrack>
-        {duplicatedSkills.map((skill, index) => (
-          <SkillChip
-            key={`${skill.name}-${index}`}
-            label={skill.name}
-          />
+      <TickerTrack tabIndex={0} aria-label="Technical skills">
+        {skills.map((skill) => (
+          <SkillChip key={skill.name} label={skill.name} />
         ))}
+        {/* A second, visual-only copy makes the scroll loop seamless.
+            display: contents keeps it out of the layout box (so it still
+            lays out as if its children were direct flex items) while
+            aria-hidden keeps assistive tech from announcing the same
+            skill list twice. */}
+        <Box aria-hidden="true" sx={{ display: 'contents' }}>
+          {skills.map((skill) => (
+            <SkillChip key={`${skill.name}-duplicate`} label={skill.name} />
+          ))}
+        </Box>
       </TickerTrack>
     </TickerContainer>
   );
