@@ -49,6 +49,7 @@ const App = () => {
           personalTitle={portfolioData.personal.title}
         />
         <Box
+          component="main"
           id="main-content"
           tabIndex={-1}
           sx={{

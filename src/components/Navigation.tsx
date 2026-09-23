@@ -1,6 +1,6 @@
 import { useState, useEffect, useMemo } from 'react';
-import { Box, Button, Stack, Typography } from '@mui/material';
-import { styled } from '@mui/material/styles';
+import { Box, Button, Stack, Typography, useMediaQuery } from '@mui/material';
+import { styled, useTheme } from '@mui/material/styles';
 import type { NavigationProps } from '../types/portfolio';
 import EmailIcon from '@mui/icons-material/Email';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
@@ -245,6 +245,10 @@ const MobileOverlay = styled(Box)(({ theme }) => ({
 const Navigation = ({ navigation, resumeUrl, contactMethods, personalName, personalTitle }: NavigationProps) => {
   const [activeSection, setActiveSection] = useState('hero');
   const [mobileOpen, setMobileOpen] = useState(false);
+  const theme = useTheme();
+  // Below the sm breakpoint the sidebar slides off-screen when closed; it has
+  // to be inert then too, or keyboard users tab into links they can't see.
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'), { noSsr: true });
 
   const navItems = useMemo(() => navigation, [navigation]);
 
@@ -348,7 +352,12 @@ const Navigation = ({ navigation, resumeUrl, contactMethods, personalName, perso
 
   return (
     <>
-      <MobileToggle onClick={() => setMobileOpen(!mobileOpen)}>
+      <MobileToggle
+        onClick={() => setMobileOpen(!mobileOpen)}
+        aria-label={mobileOpen ? 'Close navigation menu' : 'Open navigation menu'}
+        aria-expanded={mobileOpen}
+        aria-controls="primary-navigation"
+      >
         {mobileOpen ? <CloseIcon /> : <MenuIcon />}
       </MobileToggle>
 
@@ -359,7 +368,9 @@ const Navigation = ({ navigation, resumeUrl, contactMethods, personalName, perso
       
       <NavContainer
         component="nav"
+        id="primary-navigation"
         aria-label="Primary"
+        inert={isMobile && !mobileOpen}
         className={mobileOpen ? 'open' : ''}
       >
         <NameSection onClick={() => scrollToSection('hero')}>

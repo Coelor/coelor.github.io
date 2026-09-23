@@ -2,9 +2,9 @@ import { Box, Typography, Stack, Chip, Button, Card, CardContent } from '@mui/ma
 import { styled } from '@mui/material/styles';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import LaunchIcon from '@mui/icons-material/Launch';
-import type { ProjectsSectionProps, Project } from '../types/portfolio';
+import type { ProjectsSectionProps } from '../types/portfolio';
 import { useProjectModal } from '../hooks/useProjectModal';
-import ProjectModal from './ProjectModal';
+import ProjectModal, { ProjectModalTrigger } from './ProjectModal';
 
 const SectionContainer = styled(Box)(({ theme }) => ({
   padding: theme.spacing(10, 0),
@@ -14,10 +14,6 @@ const SectionContainer = styled(Box)(({ theme }) => ({
   },
 }));
 
-// `styled()` doesn't preserve Card's polymorphic `component` prop typing,
-// but this card doesn't need it (it's always a div with a role="button"),
-// so no cast is needed here — see EducationSection's CertificationCard for
-// where that cast is actually required.
 const ProjectCard = styled(Card)(({ theme }) => ({
   background: theme.palette.background.paper,
   border: `1px solid ${theme.palette.divider}`,
@@ -33,26 +29,11 @@ const ProjectCard = styled(Card)(({ theme }) => ({
     boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
     transform: 'translateY(-4px)',
   },
-  '&:focus-visible': {
-    outline: `2px solid ${theme.palette.primary.main}`,
-    outlineOffset: '2px',
-  },
 }));
 
 const ProjectsSection = ({ projects }: ProjectsSectionProps) => {
   const { selectedProject, currentImageIndex, openModal, closeModal, nextImage, prevImage, selectImage } =
     useProjectModal();
-
-  // Only opens the modal for a keydown that lands directly on the card
-  // itself — a keydown bubbling up from a focused nested link (GitHub/Live
-  // Demo) shouldn't also open the modal, mirroring how those links' own
-  // onClick already stops the click from reaching the card.
-  const handleCardKeyDown = (e: React.KeyboardEvent, project: Project) => {
-    if ((e.key === 'Enter' || e.key === ' ') && e.target === e.currentTarget) {
-      e.preventDefault();
-      openModal(project);
-    }
-  };
 
   return (
     <SectionContainer id="projects">
@@ -75,17 +56,19 @@ const ProjectsSection = ({ projects }: ProjectsSectionProps) => {
 
       <Stack spacing={4}>
         {projects.map((project) => (
-          <ProjectCard
-            key={project.id}
-            role="button"
-            tabIndex={0}
-            aria-label={`View details for ${project.title}`}
-            onClick={() => openModal(project)}
-            onKeyDown={(e) => handleCardKeyDown(e, project)}
-          >
+          <ProjectCard key={project.id} onClick={() => openModal(project)}>
             <CardContent sx={{ p: 4, flex: 1, display: 'flex', flexDirection: 'column' }}>
               <Typography variant="h5" component="h3" color="primary" gutterBottom sx={{ fontWeight: 600, mb: 2 }}>
-                {project.title}
+                <ProjectModalTrigger
+                  type="button"
+                  aria-haspopup="dialog"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    openModal(project);
+                  }}
+                >
+                  {project.title}
+                </ProjectModalTrigger>
               </Typography>
 
               <Typography variant="body1" color="text.secondary" sx={{ mb: 3, lineHeight: 1.7, flex: 1 }}>

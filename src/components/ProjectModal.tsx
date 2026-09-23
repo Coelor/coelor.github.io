@@ -84,15 +84,46 @@ const ModalContent = styled(Box)(({ theme }) => ({
 
 // A real ButtonBase (renders a <button>) rather than a plain onClick'd Box,
 // so each dot is keyboard-focusable and activatable with Enter/Space for
-// free, with no manual key handling needed.
+// free. The button is a 24px target (WCAG 2.5.8) with the visible 8px dot
+// drawn by ::before, so the carousel looks the same but is easier to hit.
 const ImageDot = styled(ButtonBase)(({ theme }) => ({
-  width: 8,
-  height: 8,
+  width: 24,
+  height: 24,
   borderRadius: '50%',
-  transition: 'all 0.3s ease',
+  '&::before': {
+    content: '""',
+    width: 8,
+    height: 8,
+    borderRadius: '50%',
+    backgroundColor: theme.palette.grey[500],
+    transition: 'background-color 0.3s ease',
+  },
+  '&[aria-current="true"]::before': {
+    backgroundColor: theme.palette.primary.main,
+  },
+  '&:focus-visible': {
+    outline: `2px solid ${theme.palette.primary.main}`,
+  },
+}));
+
+// The keyboard/screen-reader way to open the modal: a real <button> holding
+// the project title. The surrounding card keeps a mouse-only onClick as a
+// larger click target, but can't itself be role="button" — a button's
+// descendants are presentational, which would hide the card's nested
+// GitHub/Live Demo links from assistive tech.
+export const ProjectModalTrigger = styled('button')(({ theme }) => ({
+  font: 'inherit',
+  color: 'inherit',
+  background: 'none',
+  border: 'none',
+  padding: 0,
+  margin: 0,
+  textAlign: 'left',
+  cursor: 'pointer',
   '&:focus-visible': {
     outline: `2px solid ${theme.palette.primary.main}`,
     outlineOffset: '2px',
+    borderRadius: '4px',
   },
 }));
 
@@ -107,7 +138,9 @@ interface ProjectModalProps {
 
 // Shared by ProjectsSection and WorkExperienceSection — both used to define
 // this exact modal independently. MUI's Modal already provides focus
-// trapping, return-focus-on-close, and Escape-to-close for free.
+// trapping, return-focus-on-close, and Escape-to-close for free, but unlike
+// MUI's Dialog its root is role="presentation", so the dialog role and label
+// have to go on the content container itself.
 const ProjectModal = ({
   project,
   currentImageIndex,
@@ -121,7 +154,6 @@ const ProjectModal = ({
       open={!!project}
       onClose={onClose}
       closeAfterTransition
-      aria-labelledby="project-modal-title"
       slots={{ backdrop: Backdrop }}
       slotProps={{
         backdrop: {
@@ -131,7 +163,7 @@ const ProjectModal = ({
       }}
     >
       <Fade in={!!project}>
-        <ModalContainer>
+        <ModalContainer role="dialog" aria-modal="true" aria-labelledby="project-modal-title">
           {project && (
             <>
               <ModalHeader>
@@ -144,7 +176,7 @@ const ProjectModal = ({
                   sx={{
                     color: 'text.primary',
                     '&:hover': {
-                      background: 'primary.main',
+                      bgcolor: 'primary.main',
                       color: 'primary.contrastText',
                     },
                   }}
@@ -179,7 +211,6 @@ const ProjectModal = ({
                       left: '50%',
                       transform: 'translateX(-50%)',
                       display: 'flex',
-                      gap: 1,
                     }}
                   >
                     {project.images.map((_, index) => (
@@ -188,9 +219,6 @@ const ProjectModal = ({
                         onClick={() => onSelectImage(index)}
                         aria-label={`View image ${index + 1} of ${project.images.length}`}
                         aria-current={index === currentImageIndex ? 'true' : undefined}
-                        sx={{
-                          background: index === currentImageIndex ? 'primary.main' : 'rgba(0, 0, 0, 0.3)',
-                        }}
                       />
                     ))}
                   </Box>

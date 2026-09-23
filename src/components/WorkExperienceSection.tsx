@@ -14,9 +14,9 @@ import LaunchIcon from '@mui/icons-material/Launch';
 import BusinessIcon from '@mui/icons-material/Business';
 import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
-import type { WorkExperienceSectionProps, Project } from '../types/portfolio';
+import type { WorkExperienceSectionProps } from '../types/portfolio';
 import { useProjectModal } from '../hooks/useProjectModal';
-import ProjectModal from './ProjectModal';
+import ProjectModal, { ProjectModalTrigger } from './ProjectModal';
 
 const SectionContainer = styled(Box)(({ theme }) => ({
   padding: theme.spacing(10, 0),
@@ -51,26 +51,11 @@ const ProjectCard = styled(Card)(({ theme }) => ({
     boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)',
     transform: 'translateY(-4px)',
   },
-  '&:focus-visible': {
-    outline: `2px solid ${theme.palette.primary.main}`,
-    outlineOffset: '2px',
-  },
 }));
 
 const WorkExperienceSection = ({ workExperience }: WorkExperienceSectionProps) => {
   const { selectedProject, currentImageIndex, openModal, closeModal, nextImage, prevImage, selectImage } =
     useProjectModal();
-
-  // Only opens the modal for a keydown that lands directly on the card
-  // itself — a keydown bubbling up from a focused nested link (GitHub/Live
-  // Demo) shouldn't also open the modal, mirroring how those links' own
-  // onClick already stops the click from reaching the card.
-  const handleCardKeyDown = (e: React.KeyboardEvent, project: Project) => {
-    if ((e.key === 'Enter' || e.key === ' ') && e.target === e.currentTarget) {
-      e.preventDefault();
-      openModal(project);
-    }
-  };
 
   return (
     <SectionContainer id="experience">
@@ -136,17 +121,19 @@ const WorkExperienceSection = ({ workExperience }: WorkExperienceSectionProps) =
                   </Typography>
                   <Stack spacing={3}>
                     {experience.projects.map((project) => (
-                      <ProjectCard
-                        key={project.id}
-                        role="button"
-                        tabIndex={0}
-                        aria-label={`View details for ${project.title}`}
-                        onClick={() => openModal(project)}
-                        onKeyDown={(e) => handleCardKeyDown(e, project)}
-                      >
+                      <ProjectCard key={project.id} onClick={() => openModal(project)}>
                         <CardContent sx={{ p: 3, flex: 1, display: 'flex', flexDirection: 'column' }}>
                           <Typography variant="h6" component="h4" color="primary" gutterBottom sx={{ fontWeight: 600 }}>
-                            {project.title}
+                            <ProjectModalTrigger
+                              type="button"
+                              aria-haspopup="dialog"
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                openModal(project);
+                              }}
+                            >
+                              {project.title}
+                            </ProjectModalTrigger>
                           </Typography>
 
                           <Typography variant="body2" color="text.secondary" sx={{ mb: 2, lineHeight: 1.6, flex: 1 }}>
