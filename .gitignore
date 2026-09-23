@@ -11,6 +11,7 @@ node_modules
 dist
 dist-ssr
 *.local
+*.tsbuildinfo
 
 # Editor directories and files
 .vscode/*
@@ -23,3 +24,7 @@ dist-ssr
 *.sln
 *.sw?
 /dist
+
+# Local AI coding assistant state (not project source)
+.claude/
+.serena/

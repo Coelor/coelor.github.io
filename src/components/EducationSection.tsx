@@ -28,6 +28,8 @@ const EducationCard = styled(Card)(({ theme }) => ({
   },
 }));
 
+// `styled()` doesn't preserve Card's polymorphic `component` prop typing,
+// so cast back to `typeof Card` to keep the `component="a"` overload usable.
 const CertificationCard = styled(Card)(({ theme }) => ({
   background: theme.palette.background.paper,
   border: `1px solid ${theme.palette.divider}`,
@@ -40,7 +42,7 @@ const CertificationCard = styled(Card)(({ theme }) => ({
     boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)',
     transform: 'translateY(-2px)',
   },
-}));
+})) as typeof Card;
 
 const IconWrapper = styled(Box)(({ theme }) => ({
   width: '56px',
@@ -130,18 +132,8 @@ const EducationSection = ({ education, certifications }: EducationSectionProps) 
               Professional Certifications
             </Typography>
             <Stack spacing={2}>
-              {certifications.map((cert) => (
-                <CertificationCard
-                  key={cert.id}
-                  component={cert.credentialUrl ? 'a' : 'div'}
-                  href={cert.credentialUrl}
-                  target={cert.credentialUrl ? '_blank' : undefined}
-                  rel={cert.credentialUrl ? 'noopener noreferrer' : undefined}
-                  sx={{
-                    textDecoration: 'none',
-                    color: 'inherit',
-                  }}
-                >
+              {certifications.map((cert) => {
+                const cardContent = (
                   <CardContent sx={{ p: 3 }}>
                     <Stack direction="row" spacing={2} alignItems="center">
                       <Box
@@ -177,8 +169,34 @@ const EducationSection = ({ education, certifications }: EducationSectionProps) 
                       </Box>
                     </Stack>
                   </CardContent>
-                </CertificationCard>
-              ))}
+                );
+
+                return cert.credentialUrl ? (
+                  <CertificationCard
+                    key={cert.id}
+                    component="a"
+                    href={cert.credentialUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    sx={{
+                      textDecoration: 'none',
+                      color: 'inherit',
+                    }}
+                  >
+                    {cardContent}
+                  </CertificationCard>
+                ) : (
+                  <CertificationCard
+                    key={cert.id}
+                    sx={{
+                      textDecoration: 'none',
+                      color: 'inherit',
+                    }}
+                  >
+                    {cardContent}
+                  </CertificationCard>
+                );
+              })}
             </Stack>
           </Box>
         )}

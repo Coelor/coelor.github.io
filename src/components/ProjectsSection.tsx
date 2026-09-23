@@ -224,7 +224,7 @@ const ProjectsSection = ({ projects }: ProjectsSectionProps) => {
                       color="primary" 
                       size="small"
                       startIcon={<LaunchIcon />}
-                      onClick={(e) => handleLinkClick(project.liveUrl!, e)}
+                      onClick={(e) => handleLinkClick(project.liveUrl, e)}
                     >
                       Live Demo
                     </Button>
