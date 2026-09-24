@@ -51,7 +51,7 @@ const AboutSection = ({ personal }: AboutSectionProps) => {
 
         <Stack spacing={4} sx={{ maxWidth: '800px', mx: 'auto' }}>
           <BioCard>
-            <Typography variant="h5" color="primary" gutterBottom sx={{ fontWeight: 600 }}>
+            <Typography variant="h5" component="h3" color="primary" gutterBottom sx={{ fontWeight: 600 }}>
               Background
             </Typography>
             <Typography variant="body1" color="text.secondary" sx={{ lineHeight: 1.8 }}>
@@ -60,7 +60,7 @@ const AboutSection = ({ personal }: AboutSectionProps) => {
           </BioCard>
 
           <BioCard>
-            <Typography variant="h5" color="primary" gutterBottom sx={{ fontWeight: 600 }}>
+            <Typography variant="h5" component="h3" color="primary" gutterBottom sx={{ fontWeight: 600 }}>
               Current Focus
             </Typography>
             <Typography variant="body1" color="text.secondary" sx={{ lineHeight: 1.8 }}>

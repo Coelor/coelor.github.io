@@ -1,6 +1,6 @@
 import { useState, useEffect, useMemo } from 'react';
-import { Box, Button, Stack, Typography } from '@mui/material';
-import { styled } from '@mui/material/styles';
+import { Box, Button, Stack, Typography, useMediaQuery } from '@mui/material';
+import { styled, useTheme } from '@mui/material/styles';
 import type { NavigationProps } from '../types/portfolio';
 import EmailIcon from '@mui/icons-material/Email';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
@@ -35,7 +35,7 @@ const NavContainer = styled(Box)(({ theme }) => ({
       transform: 'translateX(0)',
     },
   },
-}));
+})) as typeof Box;
 
 const NameSection = styled(Box)(({ theme }) => ({
   marginBottom: theme.spacing(4),
@@ -83,9 +83,12 @@ const NavLinksGroup = styled(Box)(({ theme }) => ({
   marginBottom: theme.spacing(3),
 }));
 
-const NavLink = styled(Button, {
-  shouldForwardProp: (prop) => prop !== 'active',
-})<{ active: boolean }>(({ theme, active }) => ({
+// Active state is toggled via a plain `active` class (matching NavContainer/
+// MobileOverlay's own className-based state elsewhere in this file) rather
+// than a custom typed prop — styled() doesn't preserve Button's polymorphic
+// `component` typing when combined with a custom generic prop, and a class
+// sidesteps that entirely so `component="a" href={...}` below still works.
+const NavLink = styled(Button)(({ theme }) => ({
   fontWeight: 500,
   fontSize: '0.95rem',
   textTransform: 'none',
@@ -93,26 +96,32 @@ const NavLink = styled(Button, {
   minWidth: 'auto',
   width: '100%',
   justifyContent: 'flex-start',
-  color: active ? theme.palette.primary.main : theme.palette.text.primary,
-  backgroundColor: active ? `${theme.palette.primary.main}08` : 'transparent',
+  color: theme.palette.text.primary,
+  backgroundColor: 'transparent',
   border: 'none',
   textDecoration: 'none',
   transition: 'all 0.2s ease',
   borderRadius: '8px',
-  borderLeft: active ? `3px solid ${theme.palette.primary.main}` : '3px solid transparent',
+  borderLeft: '3px solid transparent',
   '&:hover': {
     backgroundColor: `${theme.palette.primary.main}08`,
     color: theme.palette.primary.main,
     textDecoration: 'none',
   },
-  '&:focus': {
-    outline: 'none',
+  '&.active': {
+    color: theme.palette.primary.main,
+    backgroundColor: `${theme.palette.primary.main}08`,
+    borderLeft: `3px solid ${theme.palette.primary.main}`,
+  },
+  '&:focus-visible': {
+    outline: `2px solid ${theme.palette.primary.main}`,
+    outlineOffset: '2px',
   },
   [theme.breakpoints.down('sm')]: {
     fontSize: '0.9rem',
     padding: theme.spacing(1, 1.25),
   },
-}));
+})) as unknown as typeof Button;
 
 const ContactSection = styled(Box)(({ theme }) => ({
   marginTop: 'auto',
@@ -187,7 +196,7 @@ const ResumeButton = styled(Button)(({ theme }) => ({
     transform: 'translateY(-2px)',
     boxShadow: '0 4px 12px rgba(37, 99, 235, 0.3)',
   },
-}));
+})) as unknown as typeof Button;
 
 const MobileToggle = styled(Button)(({ theme }) => ({
   display: 'none',
@@ -236,6 +245,10 @@ const MobileOverlay = styled(Box)(({ theme }) => ({
 const Navigation = ({ navigation, resumeUrl, contactMethods, personalName, personalTitle }: NavigationProps) => {
   const [activeSection, setActiveSection] = useState('hero');
   const [mobileOpen, setMobileOpen] = useState(false);
+  const theme = useTheme();
+  // Below the sm breakpoint the sidebar slides off-screen when closed; it has
+  // to be inert then too, or keyboard users tab into links they can't see.
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'), { noSsr: true });
 
   const navItems = useMemo(() => navigation, [navigation]);
 
@@ -304,22 +317,47 @@ const Navigation = ({ navigation, resumeUrl, contactMethods, personalName, perso
     const element = document.getElementById(sectionId);
     if (element) {
       setActiveSection(sectionId); // Immediate visual feedback
-      
+
+      // Update the URL fragment without letting the browser jump there on
+      // its own (pushState doesn't scroll) — the custom offset scroll below
+      // handles the actual positioning, but the address bar still reflects
+      // the section, so links stay shareable/bookmarkable and back/forward
+      // still works, same as clicking a plain <a href="#section"> would.
+      window.history.pushState(null, '', `#${sectionId}`);
+
       const offset = 50; // Small offset for better positioning
       const elementPosition = element.offsetTop - offset;
-      
+
       window.scrollTo({
         top: elementPosition,
         behavior: 'smooth'
       });
-      
+
       setMobileOpen(false);
     }
   };
 
+  // Real <a href="#section"> anchors give keyboard/screen-reader users
+  // proper link semantics (open-in-new-tab, copy-link, URL fragments) while
+  // this still drives the custom-offset smooth scroll for a plain click.
+  // Modifier-clicks and non-primary buttons are left alone so the browser's
+  // native anchor behavior (new tab, etc.) still works.
+  const handleNavLinkClick = (e: React.MouseEvent, sectionId: string) => {
+    if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button !== 0) {
+      return;
+    }
+    e.preventDefault();
+    scrollToSection(sectionId);
+  };
+
   return (
     <>
-      <MobileToggle onClick={() => setMobileOpen(!mobileOpen)}>
+      <MobileToggle
+        onClick={() => setMobileOpen(!mobileOpen)}
+        aria-label={mobileOpen ? 'Close navigation menu' : 'Open navigation menu'}
+        aria-expanded={mobileOpen}
+        aria-controls="primary-navigation"
+      >
         {mobileOpen ? <CloseIcon /> : <MenuIcon />}
       </MobileToggle>
 
@@ -328,7 +366,13 @@ const Navigation = ({ navigation, resumeUrl, contactMethods, personalName, perso
         onClick={() => setMobileOpen(false)}
       />
       
-      <NavContainer className={mobileOpen ? 'open' : ''}>
+      <NavContainer
+        component="nav"
+        id="primary-navigation"
+        aria-label="Primary"
+        inert={isMobile && !mobileOpen}
+        className={mobileOpen ? 'open' : ''}
+      >
         <NameSection onClick={() => scrollToSection('hero')}>
           <Name className="name">
             {personalName}
@@ -337,14 +381,16 @@ const Navigation = ({ navigation, resumeUrl, contactMethods, personalName, perso
             {personalTitle}
           </Title>
         </NameSection>
-        
+
         <NavLinksWrapper>
           <NavLinksGroup>
             {navItems.map((item) => (
               <NavLink
                 key={item.id}
-                active={activeSection === item.id}
-                onClick={() => scrollToSection(item.id)}
+                component="a"
+                href={`#${item.id}`}
+                className={activeSection === item.id ? 'active' : ''}
+                onClick={(e) => handleNavLinkClick(e, item.id)}
               >
                 {item.label}
               </NavLink>
@@ -353,8 +399,11 @@ const Navigation = ({ navigation, resumeUrl, contactMethods, personalName, perso
 
           {resumeUrl && (
             <ResumeButton
+              component="a"
+              href={resumeUrl}
+              target="_blank"
+              rel="noopener noreferrer"
               startIcon={<DescriptionIcon />}
-              onClick={() => window.open(resumeUrl, '_blank', 'noopener,noreferrer')}
             >
               Download Resume
             </ResumeButton>

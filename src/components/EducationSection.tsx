@@ -30,18 +30,15 @@ const EducationCard = styled(Card)(({ theme }) => ({
 
 // `styled()` doesn't preserve Card's polymorphic `component` prop typing,
 // so cast back to `typeof Card` to keep the `component="a"` overload usable.
+// The pointer cursor / hover-lift only belong on the branch that actually
+// renders as a link (see below) — a cert with no credentialUrl renders a
+// plain, non-interactive div and shouldn't look clickable.
 const CertificationCard = styled(Card)(({ theme }) => ({
   background: theme.palette.background.paper,
   border: `1px solid ${theme.palette.divider}`,
   borderRadius: '8px',
   boxShadow: '0 1px 3px 0 rgba(0, 0, 0, 0.1)',
   transition: 'all 0.3s ease',
-  cursor: 'pointer',
-  '&:hover': {
-    borderColor: theme.palette.success.main,
-    boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)',
-    transform: 'translateY(-2px)',
-  },
 })) as typeof Card;
 
 const IconWrapper = styled(Box)(({ theme }) => ({
@@ -78,7 +75,7 @@ const EducationSection = ({ education, certifications }: EducationSectionProps) 
 
         {/* Education Section */}
         <Box sx={{ mb: 8 }}>
-          <Typography variant="h4" color="text.primary" gutterBottom sx={{ mb: 4, fontWeight: 600 }}>
+          <Typography variant="h4" component="h3" color="text.primary" gutterBottom sx={{ mb: 4, fontWeight: 600 }}>
             Education
           </Typography>
           <Stack spacing={3}>
@@ -90,10 +87,10 @@ const EducationSection = ({ education, certifications }: EducationSectionProps) 
                       <SchoolIcon sx={{ fontSize: '2rem' }} />
                     </IconWrapper>
                     <Box sx={{ flex: 1 }}>
-                      <Typography variant="h5" color="primary" gutterBottom sx={{ fontWeight: 600 }}>
+                      <Typography variant="h5" component="h4" color="primary" gutterBottom sx={{ fontWeight: 600 }}>
                         {edu.degree}
                       </Typography>
-                      <Typography variant="h6" color="text.primary" gutterBottom sx={{ fontSize: '1.1rem' }}>
+                      <Typography variant="h6" component="p" color="text.primary" gutterBottom sx={{ fontSize: '1.1rem' }}>
                         {edu.school}
                       </Typography>
                       <Stack direction="row" spacing={2} alignItems="center" flexWrap="wrap" useFlexGap sx={{ mb: 2 }}>
@@ -128,7 +125,7 @@ const EducationSection = ({ education, certifications }: EducationSectionProps) 
         {/* Certifications Section */}
         {certifications.length > 0 && (
           <Box>
-            <Typography variant="h4" color="text.primary" gutterBottom sx={{ mb: 4, fontWeight: 600 }}>
+            <Typography variant="h4" component="h3" color="text.primary" gutterBottom sx={{ mb: 4, fontWeight: 600 }}>
               Professional Certifications
             </Typography>
             <Stack spacing={2}>
@@ -151,7 +148,7 @@ const EducationSection = ({ education, certifications }: EducationSectionProps) 
                         <VerifiedIcon />
                       </Box>
                       <Box sx={{ flex: 1 }}>
-                        <Typography variant="h6" color="text.primary" sx={{ fontWeight: 600, mb: 0.5 }}>
+                        <Typography variant="h6" component="h4" color="text.primary" sx={{ fontWeight: 600, mb: 0.5 }}>
                           {cert.name}
                         </Typography>
                         <Stack direction="row" spacing={2} alignItems="center" flexWrap="wrap" useFlexGap>
@@ -181,20 +178,18 @@ const EducationSection = ({ education, certifications }: EducationSectionProps) 
                     sx={{
                       textDecoration: 'none',
                       color: 'inherit',
+                      cursor: 'pointer',
+                      '&:hover': {
+                        borderColor: 'success.main',
+                        boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)',
+                        transform: 'translateY(-2px)',
+                      },
                     }}
                   >
                     {cardContent}
                   </CertificationCard>
                 ) : (
-                  <CertificationCard
-                    key={cert.id}
-                    sx={{
-                      textDecoration: 'none',
-                      color: 'inherit',
-                    }}
-                  >
-                    {cardContent}
-                  </CertificationCard>
+                  <CertificationCard key={cert.id}>{cardContent}</CertificationCard>
                 );
               })}
             </Stack>

@@ -19,7 +19,7 @@ const App = () => {
           position: 'relative',
         }}
       >
-        <Navigation 
+        <Navigation
           navigation={portfolioData.navigation}
           resumeUrl={portfolioData.resumeUrl}
           contactMethods={portfolioData.contactMethods}
@@ -27,6 +27,7 @@ const App = () => {
           personalTitle={portfolioData.personal.title}
         />
         <Box
+          component="main"
           sx={{
             marginLeft: { xs: 0, sm: '280px' },
             minHeight: '100vh',
